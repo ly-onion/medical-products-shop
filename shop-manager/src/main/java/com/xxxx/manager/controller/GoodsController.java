@@ -1,7 +1,10 @@
 package com.xxxx.manager.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.xxxx.common.result.BaseResult;
+import com.xxxx.manager.pojo.Brand;
 import com.xxxx.manager.pojo.GoodsCategory;
+import com.xxxx.manager.service.BrandService;
 import com.xxxx.manager.service.GoodsCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,8 @@ public class GoodsController {
 
     @Autowired
     private GoodsCategoryService goodsCategoryService;
+    @Autowired
+    private BrandService brandService;
 
     /*
      * 跳转商品列表页
@@ -77,7 +82,13 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("add")
-    public String goodsAdd(){
+    public String goodsAdd(Model model){
+        //查询顶级分类
+        List<GoodsCategory> gcList = goodsCategoryService.selectCategoryTopList();
+        model.addAttribute("gcList", gcList);
+
+        List<Brand> brandList = brandService.selectBrandList();
+        model.addAttribute("brandList", brandList);
         return "goods/goods-add";
     }
 }
