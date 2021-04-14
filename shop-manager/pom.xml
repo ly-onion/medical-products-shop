@@ -48,6 +48,11 @@
       <groupId>com.alibaba</groupId>
       <artifactId>druid</artifactId>
     </dependency>
+    <!-- 七牛云 依赖 -->
+    <dependency>
+      <groupId>com.qiniu</groupId>
+      <artifactId>qiniu-java-sdk</artifactId>
+    </dependency>
     <!-- spring boot test 依赖 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

@@ -3,6 +3,7 @@ package com.xxxx.manager.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @PROJECT_NAME: shop
@@ -24,6 +25,12 @@ public class PageController {
     * */
     @RequestMapping("/")
     public String index(){
+        return "index";
+    }
+
+    @RequestMapping("index/Admin/System/login_task")
+    @ResponseBody
+    public String toCorrect(){
         return "index";
     }
 }
