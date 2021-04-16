@@ -1,20 +1,26 @@
 package com.xxxx.manager.controller;
 
+import com.github.pagehelper.util.StringUtil;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.xxxx.common.result.BaseResult;
+import com.xxxx.common.result.FileResult;
 import com.xxxx.manager.pojo.Brand;
 import com.xxxx.manager.pojo.Goods;
 import com.xxxx.manager.pojo.GoodsCategory;
-import com.xxxx.manager.service.BrandService;
-import com.xxxx.manager.service.GoodsCategoryService;
-import com.xxxx.manager.service.GoodsService;
+import com.xxxx.manager.pojo.GoodsImages;
+import com.xxxx.manager.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -33,6 +39,10 @@ public class GoodsController {
     private BrandService brandService;
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private GoodsImagesService goodsImagesService;
+    @Autowired
+    private UploadService uploadService;
 
     /*
      * 跳转商品列表页
@@ -100,6 +110,7 @@ public class GoodsController {
 
     /**
      * 商品保存
+     *
      * @param goods
      * @return
      */
@@ -107,5 +118,35 @@ public class GoodsController {
     @ResponseBody
     public BaseResult saveGoods(Goods goods) {
         return goodsService.saveGoods(goods);
+    }
+
+
+    /**
+     * 商品相册-保存
+     *
+     * @param file
+     * @param goodsId
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("images/save")
+    @ResponseBody
+    public BaseResult saveGoodsImages(MultipartFile file, Integer goodsId) throws IOException {
+        //获取文件名并重命名，防止文件名一样导致覆盖
+        String filename = file.getOriginalFilename();
+        //加上日期在上传时会根据日期创建目录
+        String date = DateTimeFormatter.ofPattern("yyyy/MM/dd/").format(LocalDateTime.now());
+        filename = date + System.currentTimeMillis() +
+                filename.substring(filename.lastIndexOf("."));
+        FileResult fileResult = uploadService.upload(file.getInputStream(), filename);
+        //判断图片是否上传成功
+        if (!StringUtils.isEmpty(fileResult.getFileUrl())) {
+            GoodsImages goodsImages = new GoodsImages();
+            goodsImages.setGoodsId(goodsId);
+            goodsImages.setImageUrl(fileResult.getFileUrl());
+            return goodsImagesService.saveGoodsImages(goodsImages);
+        } else {
+            return BaseResult.error();
+        }
     }
 }

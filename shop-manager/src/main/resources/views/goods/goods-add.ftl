@@ -231,7 +231,7 @@ cn.js"></script>
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab_tongyong" data-toggle="tab">通用信息</a></li>
                         <!-- <li><a href="#tab_goods_desc" data-toggle="tab">描述信息</a></li>-->
-                        <li><a href="#tab_goods_images" data-toggle="tab">商品相册</a></li>
+                        <li><a href="#tab_goods_images" data-toggle="tab" onclick="checkHasGoods();">商品相册</a></li>
                         <li><a href="#tab_goods_spec" data-toggle="tab">商品模型</a></li>
                         <li><a href="#tab_goods_shipping" data-toggle="tab">商品物流</a></li>
                     </ul>
@@ -528,17 +528,12 @@ cn.js"></script>
                                     <tbody>
                                     <tr>
                                         <td>
-
-                                            <div class="goods_xc"
-                                                 style="width:100px; text-align:center; margin: 5px; display:inline-block;">
-                                                <input type="hidden" name="goods_images[]" value=""/>
-                                                <a href="javascript:void(0);"
-                                                   onclick="GetUploadify(10,'','goods','call_back2');"><img
-                                                            src="../Public/images/add-button.jpg" width="100"
-                                                            height="100"/></a>
-                                                <br/>
-                                                <a href="javascript:void(0)">&nbsp;&nbsp;</a>
-                                            </div>
+                                            <form enctype="multipart/form-data">
+                                                <!--<input type="text" id="fileGroupName" name="fileGroupName"/><br>-->
+                                                <input id="file-goods-images" class="file" name="file" type="file"
+                                                       multiple
+                                                       data-min-file-count="1">
+                                            </form>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -893,6 +888,71 @@ cn.js"></script>
         console.log('File uploaded triggered');
     });
     //============商品—上传图片======================
+
+
+    //---------------------------商品相册begin-------------------
+    /**
+     * 初始设置
+     * language指定语言
+     * uploadUrl指定文件上传的后台地址
+     * allowedPreviewTypes允许上传文件的类型
+     */
+    $('#file-goods-images').fileinput({
+        language: 'zh',
+        uploadUrl: '${ctx}/goods/images/save',
+        allowedPreviewTypes: ['image', 'html', 'text', 'video', 'audio', 'flash'],
+        //文件上传插件提交额外参数
+        uploadExtraData: function () {
+            var goodsId = {"goodsId": $("#goodsId").val()};
+            return goodsId;
+        }
+    });
+    /**
+     * 上传文件失败后 调用方法（回调函数）
+     */
+    $('#file-goods-images').on('fileuploaderror', function (event, data, previewId, index) {
+        var form = data.form,
+            files = data.files,
+            extra = data.extra,
+            response = data.response,
+            reader = data.reader;
+        console.log(data);
+        console.log('File upload error');
+    });
+    /**
+     * 文件错误 比如文件类型错误 调用方法（回调函数）
+     * */
+    $('#file-goods-images').on('fileerror', function (event, data) {
+        console.log(data.id);
+        console.log(data.index);
+        console.log(data.file);
+        console.log(data.reader);
+        console.log(data.files);
+    });
+    /**
+     * 文件上传成功后 调用方法（回调函数）
+     */
+    $('#file-goods-images').on('fileuploaded', function (event, data, previewId, index) {
+        var form = data.form,
+            files = data.files,
+            extra = data.extra,
+            response = data.response,
+            reader = data.reader;
+        console.log('File uploaded triggered');
+    });
+    //---------------------------商品相册end------------------------
+
+    /**
+     * 检查是否保存商品通用信息
+     */
+    function checkHasGoods(){
+        if (!$("#goodsId").val()){
+            layer.msg("清先保存商品【通用信息】");
+            $("#file-goods-images").attr("disabled", true);
+        }else {
+            $("#file-goods-images").attr("disabled", false);
+        }
+    }
 
 </script>
 <!--以下是在线编辑器 代码 -->

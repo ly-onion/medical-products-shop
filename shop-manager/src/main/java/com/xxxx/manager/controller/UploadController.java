@@ -36,8 +36,4 @@ public class UploadController {
         return uploadService.upload(file.getInputStream(),filename);
     }
 
-    @RequestMapping("/")
-    public String index(){
-        return "index";
-    }
 }

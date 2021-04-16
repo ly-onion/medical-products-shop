@@ -6,6 +6,8 @@ import com.xxxx.manager.pojo.Goods;
 import com.xxxx.manager.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.util.HtmlUtils;
 
 /**
  * @PROJECT_NAME: shop
@@ -24,6 +26,10 @@ public class GoodsServiceImpl implements GoodsService {
         if (null != goods.getGoodsId()) {
 
             return BaseResult.error();
+        }
+        //html文本转义
+        if (!StringUtils.isEmpty(goods.getGoodsContent())) {
+            goods.setGoodsContent(HtmlUtils.htmlEscape(goods.getGoodsContent(), "UTF-8"));
         }
         int result = goodsMapper.insertSelective(goods);
         BaseResult baseResult = BaseResult.error();
