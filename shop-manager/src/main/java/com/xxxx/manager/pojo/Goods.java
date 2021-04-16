@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author zhoubin 
+ * @author zhoubin
  * @since 1.0.0
  */
 public class Goods implements Serializable {
@@ -18,10 +18,10 @@ public class Goods implements Serializable {
      */
     private Integer catId;
 
-    /**
-     * 扩展分类id
-     */
-    private Integer extendCatId;
+//    /**
+//     * 扩展分类id
+//     */
+//    private Integer extendCatId;
 
     /**
      * 商品编号
@@ -153,10 +153,10 @@ public class Goods implements Serializable {
      */
     private Integer exchangeIntegral;
 
-    /**
-     * 供货商ID
-     */
-    private Short suppliersId;
+//    /**
+//     * 供货商ID
+//     */
+//    private Short suppliersId;
 
     /**
      * 商品销量
@@ -214,13 +214,13 @@ public class Goods implements Serializable {
         this.catId = catId;
     }
 
-    public Integer getExtendCatId() {
-        return extendCatId;
-    }
-
-    public void setExtendCatId(Integer extendCatId) {
-        this.extendCatId = extendCatId;
-    }
+//    public Integer getExtendCatId() {
+//        return extendCatId;
+//    }
+//
+//    public void setExtendCatId(Integer extendCatId) {
+//        this.extendCatId = extendCatId;
+//    }
 
     public String getGoodsSn() {
         return goodsSn;
@@ -430,13 +430,13 @@ public class Goods implements Serializable {
         this.exchangeIntegral = exchangeIntegral;
     }
 
-    public Short getSuppliersId() {
-        return suppliersId;
-    }
-
-    public void setSuppliersId(Short suppliersId) {
-        this.suppliersId = suppliersId;
-    }
+//    public Short getSuppliersId() {
+//        return suppliersId;
+//    }
+//
+//    public void setSuppliersId(Short suppliersId) {
+//        this.suppliersId = suppliersId;
+//    }
 
     public Integer getSalesSum() {
         return salesSum;
@@ -502,7 +502,7 @@ public class Goods implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", goodsId=").append(goodsId);
         sb.append(", catId=").append(catId);
-        sb.append(", extendCatId=").append(extendCatId);
+//        sb.append(", extendCatId=").append(extendCatId);
         sb.append(", goodsSn=").append(goodsSn);
         sb.append(", goodsName=").append(goodsName);
         sb.append(", clickCount=").append(clickCount);
@@ -529,7 +529,7 @@ public class Goods implements Serializable {
         sb.append(", specType=").append(specType);
         sb.append(", giveIntegral=").append(giveIntegral);
         sb.append(", exchangeIntegral=").append(exchangeIntegral);
-        sb.append(", suppliersId=").append(suppliersId);
+//        sb.append(", suppliersId=").append(suppliersId);
         sb.append(", salesSum=").append(salesSum);
         sb.append(", promType=").append(promType);
         sb.append(", promId=").append(promId);

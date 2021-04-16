@@ -5,6 +5,7 @@ import com.xxxx.manager.vo.GoodsCategoryVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 

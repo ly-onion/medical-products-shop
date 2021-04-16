@@ -74,8 +74,9 @@ public class GoodsExample {
     }
 
     /**
-    /* 
-     * @author zhoubin 
+     * /*
+     *
+     * @author zhoubin
      * @since 1.0.0
      */
     protected abstract static class GeneratedCriteria {
@@ -239,65 +240,65 @@ public class GoodsExample {
             return (Criteria) this;
         }
 
-        public Criteria andExtendCatIdIsNull() {
-            addCriterion("extend_cat_id is null");
-            return (Criteria) this;
-        }
+//        public Criteria andExtendCatIdIsNull() {
+//            addCriterion("extend_cat_id is null");
+//            return (Criteria) this;
+//        }
 
-        public Criteria andExtendCatIdIsNotNull() {
-            addCriterion("extend_cat_id is not null");
-            return (Criteria) this;
-        }
+//        public Criteria andExtendCatIdIsNotNull() {
+//            addCriterion("extend_cat_id is not null");
+//            return (Criteria) this;
+//        }
 
-        public Criteria andExtendCatIdEqualTo(Integer value) {
-            addCriterion("extend_cat_id =", value, "extendCatId");
-            return (Criteria) this;
-        }
+//        public Criteria andExtendCatIdEqualTo(Integer value) {
+//            addCriterion("extend_cat_id =", value, "extendCatId");
+//            return (Criteria) this;
+//        }
 
-        public Criteria andExtendCatIdNotEqualTo(Integer value) {
-            addCriterion("extend_cat_id <>", value, "extendCatId");
-            return (Criteria) this;
-        }
-
-        public Criteria andExtendCatIdGreaterThan(Integer value) {
-            addCriterion("extend_cat_id >", value, "extendCatId");
-            return (Criteria) this;
-        }
-
-        public Criteria andExtendCatIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("extend_cat_id >=", value, "extendCatId");
-            return (Criteria) this;
-        }
-
-        public Criteria andExtendCatIdLessThan(Integer value) {
-            addCriterion("extend_cat_id <", value, "extendCatId");
-            return (Criteria) this;
-        }
-
-        public Criteria andExtendCatIdLessThanOrEqualTo(Integer value) {
-            addCriterion("extend_cat_id <=", value, "extendCatId");
-            return (Criteria) this;
-        }
-
-        public Criteria andExtendCatIdIn(List<Integer> values) {
-            addCriterion("extend_cat_id in", values, "extendCatId");
-            return (Criteria) this;
-        }
-
-        public Criteria andExtendCatIdNotIn(List<Integer> values) {
-            addCriterion("extend_cat_id not in", values, "extendCatId");
-            return (Criteria) this;
-        }
-
-        public Criteria andExtendCatIdBetween(Integer value1, Integer value2) {
-            addCriterion("extend_cat_id between", value1, value2, "extendCatId");
-            return (Criteria) this;
-        }
-
-        public Criteria andExtendCatIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("extend_cat_id not between", value1, value2, "extendCatId");
-            return (Criteria) this;
-        }
+//        public Criteria andExtendCatIdNotEqualTo(Integer value) {
+//            addCriterion("extend_cat_id <>", value, "extendCatId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andExtendCatIdGreaterThan(Integer value) {
+//            addCriterion("extend_cat_id >", value, "extendCatId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andExtendCatIdGreaterThanOrEqualTo(Integer value) {
+//            addCriterion("extend_cat_id >=", value, "extendCatId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andExtendCatIdLessThan(Integer value) {
+//            addCriterion("extend_cat_id <", value, "extendCatId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andExtendCatIdLessThanOrEqualTo(Integer value) {
+//            addCriterion("extend_cat_id <=", value, "extendCatId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andExtendCatIdIn(List<Integer> values) {
+//            addCriterion("extend_cat_id in", values, "extendCatId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andExtendCatIdNotIn(List<Integer> values) {
+//            addCriterion("extend_cat_id not in", values, "extendCatId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andExtendCatIdBetween(Integer value1, Integer value2) {
+//            addCriterion("extend_cat_id between", value1, value2, "extendCatId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andExtendCatIdNotBetween(Integer value1, Integer value2) {
+//            addCriterion("extend_cat_id not between", value1, value2, "extendCatId");
+//            return (Criteria) this;
+//        }
 
         public Criteria andGoodsSnIsNull() {
             addCriterion("goods_sn is null");
@@ -1909,65 +1910,65 @@ public class GoodsExample {
             return (Criteria) this;
         }
 
-        public Criteria andSuppliersIdIsNull() {
-            addCriterion("suppliers_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdIsNotNull() {
-            addCriterion("suppliers_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdEqualTo(Short value) {
-            addCriterion("suppliers_id =", value, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdNotEqualTo(Short value) {
-            addCriterion("suppliers_id <>", value, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdGreaterThan(Short value) {
-            addCriterion("suppliers_id >", value, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdGreaterThanOrEqualTo(Short value) {
-            addCriterion("suppliers_id >=", value, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdLessThan(Short value) {
-            addCriterion("suppliers_id <", value, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdLessThanOrEqualTo(Short value) {
-            addCriterion("suppliers_id <=", value, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdIn(List<Short> values) {
-            addCriterion("suppliers_id in", values, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdNotIn(List<Short> values) {
-            addCriterion("suppliers_id not in", values, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdBetween(Short value1, Short value2) {
-            addCriterion("suppliers_id between", value1, value2, "suppliersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSuppliersIdNotBetween(Short value1, Short value2) {
-            addCriterion("suppliers_id not between", value1, value2, "suppliersId");
-            return (Criteria) this;
-        }
+//        public Criteria andSuppliersIdIsNull() {
+//            addCriterion("suppliers_id is null");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdIsNotNull() {
+//            addCriterion("suppliers_id is not null");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdEqualTo(Short value) {
+//            addCriterion("suppliers_id =", value, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdNotEqualTo(Short value) {
+//            addCriterion("suppliers_id <>", value, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdGreaterThan(Short value) {
+//            addCriterion("suppliers_id >", value, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdGreaterThanOrEqualTo(Short value) {
+//            addCriterion("suppliers_id >=", value, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdLessThan(Short value) {
+//            addCriterion("suppliers_id <", value, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdLessThanOrEqualTo(Short value) {
+//            addCriterion("suppliers_id <=", value, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdIn(List<Short> values) {
+//            addCriterion("suppliers_id in", values, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdNotIn(List<Short> values) {
+//            addCriterion("suppliers_id not in", values, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdBetween(Short value1, Short value2) {
+//            addCriterion("suppliers_id between", value1, value2, "suppliersId");
+//            return (Criteria) this;
+//        }
+//
+//        public Criteria andSuppliersIdNotBetween(Short value1, Short value2) {
+//            addCriterion("suppliers_id not between", value1, value2, "suppliersId");
+//            return (Criteria) this;
+//        }
 
         public Criteria andSalesSumIsNull() {
             addCriterion("sales_sum is null");
@@ -2351,8 +2352,9 @@ public class GoodsExample {
     }
 
     /**
-    /* 
-     * @author zhoubin 
+     * /*
+     *
+     * @author zhoubin
      * @since 1.0.0
      */
     public static class Criteria extends GeneratedCriteria {
@@ -2363,8 +2365,9 @@ public class GoodsExample {
     }
 
     /**
-    /* 
-     * @author zhoubin 
+     * /*
+     *
+     * @author zhoubin
      * @since 1.0.0
      */
     public static class Criterion {

@@ -9,6 +9,13 @@
     <script type="text/javascript" src="${ctx}/js/global.js"></script>
     <!-- 对中文的支持 -->
     <script type="text/javascript" src="${ctx}/js/fileinput_locale_zh.js"></script>
+    <!-- 百度 ueditor -->
+    <script type="text/javascript" charset="utf-8"
+            src="${ctx}/plugins/Ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="${ctx}/plugins/Ueditor/ueditor.all.js">
+    </script>
+    <script type="text/javascript" charset="utf-8" src="${ctx}/plugins/Ueditor/lang/zh-cn/zh-
+cn.js"></script>
     <script type="text/javascript">
         function delfunc(obj) {
             layer.confirm('确认删除？', {
@@ -118,87 +125,84 @@
 </style>
 <!--物流配置 css -end-->
 
-<!--以下是在线编辑器 代码 -->
-<script type="text/javascript">
-    /*
-	 * 在线编辑器相 关配置 js 
-	 *  参考 地址 http://fex.baidu.com/ueditor/
-	 */
-    window.UEDITOR_Admin_URL = "../Public/plugins/Ueditor/";
-    var URL_upload = "/index/Admin/Ueditor/imageUp/savepath/goods";
-    var URL_fileUp = "/index/Admin/Ueditor/fileUp/savepath/article";
-    var URL_scrawlUp = "/index/Admin/Ueditor/scrawlUp/savepath/article";
-    var URL_getRemoteImage = "/index/Admin/Ueditor/getRemoteImage/savepath/article";
-    var URL_imageManager = "/index/Admin/Ueditor/imageManager/savepath/article";
-    var URL_imageUp = "/index/Admin/Ueditor/imageUp/savepath/article";
-    var URL_getMovie = "/index/Admin/Ueditor/getMovie/savepath/article";
-    var URL_home = "";
-</script>
-<script type="text/javascript" charset="utf-8" src="../Public/plugins/Ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="../Public/plugins/Ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="../Public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript">
+<#--<!--以下是在线编辑器 代码 &ndash;&gt;-->
+<#--<script type="text/javascript">-->
+<#--    /*-->
+<#--	 * 在线编辑器相 关配置 js -->
+<#--	 *  参考 地址 http://fex.baidu.com/ueditor/-->
+<#--	 */-->
+<#--    window.UEDITOR_Admin_URL = "../Public/plugins/Ueditor/";-->
+<#--    var URL_upload = "/index/Admin/Ueditor/imageUp/savepath/goods";-->
+<#--    var URL_fileUp = "/index/Admin/Ueditor/fileUp/savepath/article";-->
+<#--    var URL_scrawlUp = "/index/Admin/Ueditor/scrawlUp/savepath/article";-->
+<#--    var URL_getRemoteImage = "/index/Admin/Ueditor/getRemoteImage/savepath/article";-->
+<#--    var URL_imageManager = "/index/Admin/Ueditor/imageManager/savepath/article";-->
+<#--    var URL_imageUp = "/index/Admin/Ueditor/imageUp/savepath/article";-->
+<#--    var URL_getMovie = "/index/Admin/Ueditor/getMovie/savepath/article";-->
+<#--    var URL_home = "";-->
+<#--</script>-->
+<#--<script type="text/javascript">-->
 
-    var editor;
-    $(function () {
-        //具体参数配置在  editor_config.js  中
-        var options = {
-            zIndex: 999,
-            initialFrameWidth: "95%", //初化宽度
-            initialFrameHeight: 400, //初化高度
-            focus: false, //初始化时，是否让编辑器获得焦点true或false
-            maximumWords: 99999, removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign'
-            , //允许的最大字符数 'fullscreen',
-            pasteplain: false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
-            autoHeightEnabled: true
-            /*   autotypeset: {
-                   mergeEmptyline: true,        //合并空行
-                   removeClass: true,           //去掉冗余的class
-                   removeEmptyline: false,      //去掉空行
-                   textAlign: "left",           //段落的排版方式，可以是 left,right,center,justify 去掉这个属性表示不执行排版
-                   imageBlockLine: 'center',    //图片的浮动方式，独占一行剧中,左右浮动，默认: center,left,right,none 去掉这个属性表示不执行排版
-                   pasteFilter: false,          //根据规则过滤没事粘贴进来的内容
-                   clearFontSize: false,        //去掉所有的内嵌字号，使用编辑器默认的字号
-                   clearFontFamily: false,      //去掉所有的内嵌字体，使用编辑器默认的字体
-                   removeEmptyNode: false,      //去掉空节点
-                                                //可以去掉的标签
-                   removeTagNames: {"font": 1},
-                   indent: false,               // 行首缩进
-                   indentValue: '0em'           //行首缩进的大小
-               }*/,
-            toolbars: [
-                ['fullscreen', 'source', '|', 'undo', 'redo',
-                    '|', 'bold', 'italic', 'underline', 'fontborder',
-                    'strikethrough', 'superscript', 'subscript',
-                    'removeformat', 'formatmatch', 'autotypeset',
-                    'blockquote', 'pasteplain', '|', 'forecolor',
-                    'backcolor', 'insertorderedlist',
-                    'insertunorderedlist', 'selectall', 'cleardoc', '|',
-                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-                    'customstyle', 'paragraph', 'fontfamily', 'fontsize',
-                    '|', 'directionalityltr', 'directionalityrtl',
-                    'indent', '|', 'justifyleft', 'justifycenter',
-                    'justifyright', 'justifyjustify', '|', 'touppercase',
-                    'tolowercase', '|', 'link', 'unlink', 'anchor', '|',
-                    'imagenone', 'imageleft', 'imageright', 'imagecenter',
-                    '|', 'insertimage', 'emotion', 'insertvideo',
-                    'attachment', 'map', 'gmap', 'insertframe',
-                    'insertcode', 'webapp', 'pagebreak', 'template',
-                    'background', '|', 'horizontal', 'date', 'time',
-                    'spechars', 'wordimage', '|',
-                    'inserttable', 'deletetable',
-                    'insertparagraphbeforetable', 'insertrow', 'deleterow',
-                    'insertcol', 'deletecol', 'mergecells', 'mergeright',
-                    'mergedown', 'splittocells', 'splittorows',
-                    'splittocols', '|', 'print', 'preview', 'searchreplace']
-            ]
-        };
-        editor = new UE.ui.Editor(options);
-        editor.render("goods_content");  //  指定 textarea 的  id 为 goods_content
+<#--    var editor;-->
+<#--    $(function () {-->
+<#--        //具体参数配置在  editor_config.js  中-->
+<#--        var options = {-->
+<#--            zIndex: 999,-->
+<#--            initialFrameWidth: "95%", //初化宽度-->
+<#--            initialFrameHeight: 400, //初化高度-->
+<#--            focus: false, //初始化时，是否让编辑器获得焦点true或false-->
+<#--            maximumWords: 99999, removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign'-->
+<#--            , //允许的最大字符数 'fullscreen',-->
+<#--            pasteplain: false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴-->
+<#--            autoHeightEnabled: true-->
+<#--            /*   autotypeset: {-->
+<#--                   mergeEmptyline: true,        //合并空行-->
+<#--                   removeClass: true,           //去掉冗余的class-->
+<#--                   removeEmptyline: false,      //去掉空行-->
+<#--                   textAlign: "left",           //段落的排版方式，可以是 left,right,center,justify 去掉这个属性表示不执行排版-->
+<#--                   imageBlockLine: 'center',    //图片的浮动方式，独占一行剧中,左右浮动，默认: center,left,right,none 去掉这个属性表示不执行排版-->
+<#--                   pasteFilter: false,          //根据规则过滤没事粘贴进来的内容-->
+<#--                   clearFontSize: false,        //去掉所有的内嵌字号，使用编辑器默认的字号-->
+<#--                   clearFontFamily: false,      //去掉所有的内嵌字体，使用编辑器默认的字体-->
+<#--                   removeEmptyNode: false,      //去掉空节点-->
+<#--                                                //可以去掉的标签-->
+<#--                   removeTagNames: {"font": 1},-->
+<#--                   indent: false,               // 行首缩进-->
+<#--                   indentValue: '0em'           //行首缩进的大小-->
+<#--               }*/,-->
+<#--            toolbars: [-->
+<#--                ['fullscreen', 'source', '|', 'undo', 'redo',-->
+<#--                    '|', 'bold', 'italic', 'underline', 'fontborder',-->
+<#--                    'strikethrough', 'superscript', 'subscript',-->
+<#--                    'removeformat', 'formatmatch', 'autotypeset',-->
+<#--                    'blockquote', 'pasteplain', '|', 'forecolor',-->
+<#--                    'backcolor', 'insertorderedlist',-->
+<#--                    'insertunorderedlist', 'selectall', 'cleardoc', '|',-->
+<#--                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',-->
+<#--                    'customstyle', 'paragraph', 'fontfamily', 'fontsize',-->
+<#--                    '|', 'directionalityltr', 'directionalityrtl',-->
+<#--                    'indent', '|', 'justifyleft', 'justifycenter',-->
+<#--                    'justifyright', 'justifyjustify', '|', 'touppercase',-->
+<#--                    'tolowercase', '|', 'link', 'unlink', 'anchor', '|',-->
+<#--                    'imagenone', 'imageleft', 'imageright', 'imagecenter',-->
+<#--                    '|', 'insertimage', 'emotion', 'insertvideo',-->
+<#--                    'attachment', 'map', 'gmap', 'insertframe',-->
+<#--                    'insertcode', 'webapp', 'pagebreak', 'template',-->
+<#--                    'background', '|', 'horizontal', 'date', 'time',-->
+<#--                    'spechars', 'wordimage', '|',-->
+<#--                    'inserttable', 'deletetable',-->
+<#--                    'insertparagraphbeforetable', 'insertrow', 'deleterow',-->
+<#--                    'insertcol', 'deletecol', 'mergecells', 'mergeright',-->
+<#--                    'mergedown', 'splittocells', 'splittorows',-->
+<#--                    'splittocols', '|', 'print', 'preview', 'searchreplace']-->
+<#--            ]-->
+<#--        };-->
+<#--        editor = new UE.ui.Editor(options);-->
+<#--        editor.render("goods_content");  //  指定 textarea 的  id 为 goods_content-->
 
-    });
-</script>
-<!--以上是在线编辑器 代码  end-->
+<#--    });-->
+<#--</script>-->
+<#--<!--以上是在线编辑器 代码  end&ndash;&gt;-->
 <div class="wrapper">
     <div class="breadcrumbs" id="breadcrumbs">
         <ol class="breadcrumb">
@@ -243,7 +247,7 @@
                                     <tr>
                                         <td>商品名称:</td>
                                         <td>
-                                            <input type="text" value="" name="goods_name" class="form-control"
+                                            <input type="text" value="" name="goodsName" class="form-control"
                                                    style="width:550px;"/>
                                             <span id="err_goods_name" style="color:#F00; display:none;"></span>
                                         </td>
@@ -251,7 +255,7 @@
                                     <tr>
                                         <td>商品简介:</td>
                                         <td>
-                                            <textarea rows="3" cols="80" name="goods_remark"></textarea>
+                                            <textarea rows="3" cols="80" name="goodsRemark"></textarea>
                                             <span id="err_goods_remark" style="color:#F00; display:none;"></span>
 
                                         </td>
@@ -259,7 +263,7 @@
                                     <tr>
                                         <td>商品货号</td>
                                         <td>
-                                            <input type="text" value="" name="goods_sn" class="form-control"
+                                            <input type="text" value="" name="goodsSn" class="form-control"
                                                    style="width:350px;"/>
                                             <span id="err_goods_sn" style="color:#F00; display:none;"></span>
                                         </td>
@@ -312,35 +316,35 @@
                                             <span id="err_cat_id" style="color:#ff0000; display:none;"></span>
                                         </td>
                                     </tr>
-<#--                                    <tr>-->
-<#--                                        <td>扩展分类:</td>-->
-<#--                                        <td>-->
-<#--                                            <div class="col-xs-3">-->
-<#--                                                <select name="extend_cat_id" id="extend_cat_id"-->
-<#--                                                        onchange="get_category(this.value,'extend_cat_id_2','0');"-->
-<#--                                                        class="form-control" style="width:250px;margin-left:-15px;">-->
-<#--                                                    <option value="0">请选择商品分类</option>-->
-<#--                                                    <#list gcList as gc>-->
-<#--                                                        <option value="${gc.id}">${gc.name}</option>-->
-<#--                                                    </#list>-->
-<#--                                                </select>-->
-<#--                                            </div>-->
-<#--                                            <div class="col-xs-3">-->
-<#--                                                <select name="extend_cat_id_2" id="extend_cat_id_2"-->
-<#--                                                        onchange="get_category(this.value,'extend_cat_id_3','0');"-->
-<#--                                                        class="form-control" style="width:250px;margin-left:-15px;">-->
-<#--                                                    <option value="0">请选择商品分类</option>-->
-<#--                                                </select>-->
-<#--                                            </div>-->
-<#--                                            <div class="col-xs-3">-->
-<#--                                                <select name="extend_cat_id_3" id="extend_cat_id_3" class="form-control"-->
-<#--                                                        style="width:250px;margin-left:-15px;">-->
-<#--                                                    <option value="0">请选择商品分类</option>-->
-<#--                                                </select>-->
-<#--                                            </div>-->
-<#--                                            <span id="err_cat_id" style="color:#F00; display:none;"></span>-->
-<#--                                        </td>-->
-<#--                                    </tr>-->
+                                    <#--                                    <tr>-->
+                                    <#--                                        <td>扩展分类:</td>-->
+                                    <#--                                        <td>-->
+                                    <#--                                            <div class="col-xs-3">-->
+                                    <#--                                                <select name="extend_cat_id" id="extend_cat_id"-->
+                                    <#--                                                        onchange="get_category(this.value,'extend_cat_id_2','0');"-->
+                                    <#--                                                        class="form-control" style="width:250px;margin-left:-15px;">-->
+                                    <#--                                                    <option value="0">请选择商品分类</option>-->
+                                    <#--                                                    <#list gcList as gc>-->
+                                    <#--                                                        <option value="${gc.id}">${gc.name}</option>-->
+                                    <#--                                                    </#list>-->
+                                    <#--                                                </select>-->
+                                    <#--                                            </div>-->
+                                    <#--                                            <div class="col-xs-3">-->
+                                    <#--                                                <select name="extend_cat_id_2" id="extend_cat_id_2"-->
+                                    <#--                                                        onchange="get_category(this.value,'extend_cat_id_3','0');"-->
+                                    <#--                                                        class="form-control" style="width:250px;margin-left:-15px;">-->
+                                    <#--                                                    <option value="0">请选择商品分类</option>-->
+                                    <#--                                                </select>-->
+                                    <#--                                            </div>-->
+                                    <#--                                            <div class="col-xs-3">-->
+                                    <#--                                                <select name="extend_cat_id_3" id="extend_cat_id_3" class="form-control"-->
+                                    <#--                                                        style="width:250px;margin-left:-15px;">-->
+                                    <#--                                                    <option value="0">请选择商品分类</option>-->
+                                    <#--                                                </select>-->
+                                    <#--                                            </div>-->
+                                    <#--                                            <span id="err_cat_id" style="color:#F00; display:none;"></span>-->
+                                    <#--                                        </td>-->
+                                    <#--                                    </tr>-->
 
                                     <!--
                                                                     <tr>
@@ -366,7 +370,8 @@
                                     <tr>
                                         <td>商品品牌:</td>
                                         <td>
-                                            <select name="brand_id" id="brand_id" class="form-control" style="width:250px;">
+                                            <select name="brand_id" id="brandId" class="form-control"
+                                                    style="width:250px;">
                                                 <option value="0">所有品牌</option>
                                                 <#list brandList as brand>
                                                     <option value="${brand.id}">${brand.name}</option>
@@ -386,7 +391,7 @@
                                     <tr>
                                         <td>本店售价:</td>
                                         <td>
-                                            <input type="text" value="" name="shop_price" class="form-control"
+                                            <input type="text" value="" name="shopPrice" class="form-control"
                                                    style="width:150px;"
                                                    onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
                                                    onpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
@@ -396,7 +401,7 @@
                                     <tr>
                                         <td>市场价:</td>
                                         <td>
-                                            <input type="text" value="" name="market_price" class="form-control"
+                                            <input type="text" value="" name="marketPrice" class="form-control"
                                                    style="width:150px;"
                                                    onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
                                                    onpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
@@ -406,7 +411,7 @@
                                     <tr>
                                         <td>成本价:</td>
                                         <td>
-                                            <input type="text" value="" name="cost_price" class="form-control"
+                                            <input type="text" value="" name="costPrice" class="form-control"
                                                    style="width:150px;"
                                                    onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
                                                    onpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
@@ -426,10 +431,10 @@
                                     <tr>
                                         <td>上传商品图片:</td>
                                         <td>
-                                            <input type="text" name="originalImg" id="originalImg" />
+                                            <input type="text" name="originalImg" id="originalImg"/>
                                             <form enctype="multipart/form-data">
                                                 <input id="file-product" class="file" name="file" type="file" multiple
-                                                data-min-file-count="1">
+                                                       data-min-file-count="1">
                                             </form>
                                             <#--<input type="button" value="上传图片"
                                                    onclick="GetUploadify(1,'','goods','call_back');"/>
@@ -452,14 +457,14 @@
                                         <td>是否包邮:</td>
                                         <td>
                                             是:<input type="radio" value="1" name="is_free_shipping"/>
-                                            否:<input type="radio" checked="checked" value="0" name="is_free_shipping"/>
+                                            否:<input type="radio" checked="checked" value="0" name="isFreeShipping"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>库存数量:</td>
                                         <td>
                                             <input type="text" value="1" class="form-control" style="width:150px;"
-                                                   name="store_count"
+                                                   name="storeCount"
                                                    onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
                                                    onpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
                                             <span id="err_store_count" style="color:#F00; display:none;"></span>
@@ -469,7 +474,7 @@
                                         <td>赠送积分:</td>
                                         <td>
                                             <input type="text" class="form-control" style="width:150px;" value=""
-                                                   name="give_integral"
+                                                   name="giveIntegral"
                                                    onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
                                                    onpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
                                             <span id="err_give_integral" style="color:#F00; display:none;"></span>
@@ -479,7 +484,7 @@
                                         <td>兑换积分:</td>
                                         <td>
                                             <input type="text" class="form-control" style="width:150px;" value=""
-                                                   name="exchange_integral"
+                                                   name="exchangeEntegral"
                                                    onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
                                                    onpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
                                             <span id="err_exchange_integral" style="color:#F00; display:none;"></span>
@@ -508,8 +513,8 @@
                                         <td>商品详情描述:</td>
                                         <td width="85%">
                                             <textarea rows="6" cols="80" class="span12 ckeditor" id="goods_content"
-                                                      name="goods_content" title=""></textarea>
-                                            <span id="err_goods_content" style="color:#F00; display:none;"></span>
+                                                      name="goodsContent" title=""></textarea>
+                                            <span id="err_goods_content" style="color:#ff0000; display:none;"></span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -681,9 +686,10 @@
                             <!-- 商品物流-->
                         </div>
                         <div class="pull-right">
-                            <input type="hidden" name="goods_id" value="">
+                            <input type="text" name="goodsId" id="goodsId" value="">
                             <button class="btn btn-primary"
-                                    onclick="ajax_submit_form('addEditGoodsForm','/index/Admin/Goods/addEditGoods/is_ajax/1');"
+                                    onclick="ajax_submit_form('addEditGoodsForm','${ctx}/goods/save',
+                                            '${ctx}/goods/add','${ctx}/goods/list','goodsId');"
                                     title="" data-toggle="tooltip" type="button" data-original-title="保存">保存
                             </button>
                         </div>
@@ -833,7 +839,7 @@
     /**
      * 设置商品分类的隐藏域的值
      */
-    function setHiddenValue(value, hiddenId){
+    function setHiddenValue(value, hiddenId) {
         $("#" + hiddenId).val(value);
     }
 
@@ -889,5 +895,83 @@
     //============商品—上传图片======================
 
 </script>
+<!--以下是在线编辑器 代码 -->
+<script type="text/javascript">
+    /*
+    * 在线编辑器相 关配置 js
+    * 参考 地址 http://fex.baidu.com/ueditor/
+    */
+    window.UEDITOR_Admin_URL = "${ctx}/plugins/Ueditor/";
+    var URL_upload = "/index/Admin/Ueditor/imageUp/savepath/goods";
+    var URL_fileUp = "/index/Admin/Ueditor/fileUp/savepath/article";
+    var URL_scrawlUp = "/index/Admin/Ueditor/scrawlUp/savepath/article";
+    var URL_getRemoteImage = "/index/Admin/Ueditor/getRemoteImage/savepath/article";
+    var URL_imageManager = "/index/Admin/Ueditor/imageManager/savepath/article";
+    var URL_imageUp = "/index/Admin/Ueditor/imageUp/savepath/article";
+    var URL_getMovie = "/index/Admin/Ueditor/getMovie/savepath/article";
+    var URL_home = "";
+</script>
+<script type="text/javascript">
+    var editor;
+    $(function () {
+        //具体参数配置在 editor_config.js 中
+        var options = {
+            zIndex: 999,
+            initialFrameWidth: "95%", //初化宽度
+            initialFrameHeight: 400, //初化高度
+            focus: false, //初始化时，是否让编辑器获得焦点true或false
+            maximumWords: 99999,
+            removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign', //允许的最大字符数 'fullscreen',
+            pasteplain: false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+            autoHeightEnabled: true
+            /* autotypeset: {
+            mergeEmptyline: true, //合并空行
+            removeClass: true, //去掉冗余的class
+            removeEmptyline: false, //去掉空行
+            textAlign: "left", //段落的排版方式，可以是
+            left,right,center,justify 去掉这个属性表示不执行排版
+            imageBlockLine: 'center', //图片的浮动方式，独占一行剧中,左右浮动，默认:
+            center,left,right,none 去掉这个属性表示不执行排版
+            pasteFilter: false, //根据规则过滤没事粘贴进来的内容
+            clearFontSize: false, //去掉所有的内嵌字号，使用编辑器默认的字号
+            clearFontFamily: false, //去掉所有的内嵌字体，使用编辑器默认的字体
+            removeEmptyNode: false, //去掉空节点
+        //可以去掉的标签
+        removeTagNames: {"font": 1},
+        indent: false, // 行首缩进
+        indentValue: '0em' //行首缩进的大小
+        }*/,
+            toolbars: [
+                ['fullscreen', 'source', '|', 'undo', 'redo',
+                    '|', 'bold', 'italic', 'underline', 'fontborder',
+                    'strikethrough', 'superscript', 'subscript',
+                    'removeformat', 'formatmatch', 'autotypeset',
+                    'blockquote', 'pasteplain', '|', 'forecolor',
+                    'backcolor', 'insertorderedlist',
+                    'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                    'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                    'customstyle', 'paragraph', 'fontfamily', 'fontsize',
+                    '|', 'directionalityltr', 'directionalityrtl',
+                    'indent', '|', 'justifyleft', 'justifycenter',
+                    'justifyright', 'justifyjustify', '|', 'touppercase',
+                    'tolowercase', '|', 'link', 'unlink', 'anchor', '|',
+                    'imagenone', 'imageleft', 'imageright', 'imagecenter',
+                    '|', 'insertimage', 'emotion', 'insertvideo',
+                    'attachment', 'map', 'gmap', 'insertframe',
+                    'insertcode', 'webapp', 'pagebreak', 'template',
+                    'background', '|', 'horizontal', 'date', 'time',
+                    'spechars', 'wordimage', '|',
+                    'inserttable', 'deletetable',
+                    'insertparagraphbeforetable', 'insertrow', 'deleterow',
+                    'insertcol', 'deletecol', 'mergecells', 'mergeright',
+                    'mergedown', 'splittocells', 'splittorows',
+                    'splittocols', '|', 'print', 'preview', 'searchreplace']
+            ]
+        };
+        editor = new UE.ui.Editor(options);
+        editor.render("goods_content"); // 指定 textarea 的 id 为 goods_content
+    });
+</script>
+<!--以上是在线编辑器 代码 end-->
 </body>
 </html>

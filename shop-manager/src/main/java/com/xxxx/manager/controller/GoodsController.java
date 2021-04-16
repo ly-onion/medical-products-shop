@@ -3,9 +3,11 @@ package com.xxxx.manager.controller;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.manager.pojo.Brand;
+import com.xxxx.manager.pojo.Goods;
 import com.xxxx.manager.pojo.GoodsCategory;
 import com.xxxx.manager.service.BrandService;
 import com.xxxx.manager.service.GoodsCategoryService;
+import com.xxxx.manager.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ public class GoodsController {
     private GoodsCategoryService goodsCategoryService;
     @Autowired
     private BrandService brandService;
+    @Autowired
+    private GoodsService goodsService;
 
     /*
      * 跳转商品列表页
@@ -70,19 +74,21 @@ public class GoodsController {
 
     /**
      * 商品-列表页面跳转
+     *
      * @return
      */
     @RequestMapping("list")
-    public String goodsList(){
+    public String goodsList() {
         return "goods/goods-list";
     }
 
     /**
      * 商品-列表页面跳转
+     *
      * @return
      */
     @RequestMapping("add")
-    public String goodsAdd(Model model){
+    public String goodsAdd(Model model) {
         //查询顶级分类
         List<GoodsCategory> gcList = goodsCategoryService.selectCategoryTopList();
         model.addAttribute("gcList", gcList);
@@ -90,5 +96,16 @@ public class GoodsController {
         List<Brand> brandList = brandService.selectBrandList();
         model.addAttribute("brandList", brandList);
         return "goods/goods-add";
+    }
+
+    /**
+     * 商品保存
+     * @param goods
+     * @return
+     */
+    @RequestMapping("save")
+    @ResponseBody
+    public BaseResult saveGoods(Goods goods) {
+        return goodsService.saveGoods(goods);
     }
 }
