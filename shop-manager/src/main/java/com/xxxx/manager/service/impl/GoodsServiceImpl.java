@@ -1,13 +1,19 @@
 package com.xxxx.manager.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.manager.mapper.GoodsMapper;
 import com.xxxx.manager.pojo.Goods;
+import com.xxxx.manager.pojo.GoodsExample;
 import com.xxxx.manager.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
+
+import java.util.List;
 
 /**
  * @PROJECT_NAME: shop
@@ -36,9 +42,46 @@ public class GoodsServiceImpl implements GoodsService {
         if (0 < result) {
             baseResult = BaseResult.success();
             baseResult.setMessage(String.valueOf(goods.getGoodsId()));
-        }else {
+        } else {
             baseResult = BaseResult.error();
         }
         return baseResult;
+    }
+
+    /**
+     * 商品列表-分页查询
+     *
+     * @param goods
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public BaseResult selectGoodsListByPage(Goods goods, Integer pageNum, Integer pageSize) {
+        //构建分页对象
+        PageHelper.startPage(pageNum, pageSize);
+        //创建查询对象
+        GoodsExample example = new GoodsExample();
+        GoodsExample.Criteria criteria = example.createCriteria();
+        //设置查询条件
+        //分类参数
+        if (null != goods.getCatId() && 0 != goods.getCatId()) {
+            criteria.andCatIdEqualTo(goods.getCatId());
+        }
+        //品牌参数
+        if (null != goods.getBrandId() && 0 != goods.getBrandId()) {
+            criteria.andBrandIdEqualTo(goods.getBrandId());
+        }
+        //关键词参数
+        if (!StringUtils.isEmpty(goods.getGoodsName())) {
+            criteria.andGoodsNameLike("%" + goods.getGoodsName() + "%");
+        }
+        //判断查询结果是否为空
+        List<Goods> list = goodsMapper.selectByExample(example);
+        if (!CollectionUtils.isEmpty(list)) {
+            PageInfo<Goods> pageInfo  = new PageInfo<>(list);
+            return BaseResult.success(pageInfo);
+        }
+        return BaseResult.error();
     }
 }

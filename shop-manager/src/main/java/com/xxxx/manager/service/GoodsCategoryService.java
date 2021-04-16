@@ -32,4 +32,10 @@ public interface GoodsCategoryService {
     * 商品分类-列表
     * */
     List<GoodsCategoryVo> selectCategoryListForView();
+
+    /**
+     * 商品分类-查询所有商品分类
+     * @return
+     */
+    List<GoodsCategory> selectCategoryList();
 }

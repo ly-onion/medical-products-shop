@@ -143,4 +143,14 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 
         return gcvList01;*/
     }
+
+
+    /**
+     * 商品分类-查询所有商品分类
+     * @return
+     */
+    @Override
+    public List<GoodsCategory> selectCategoryList() {
+        return goodsCategoryMapper.selectByExample(new GoodsCategoryExample());
+    }
 }

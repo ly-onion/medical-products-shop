@@ -193,6 +193,16 @@ public class Goods implements Serializable {
      */
     private String goodsContent;
 
+    private Integer pageNum;
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
     /**
      * t_goods
      */

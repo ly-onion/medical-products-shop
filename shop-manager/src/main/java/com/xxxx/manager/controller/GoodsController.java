@@ -88,12 +88,16 @@ public class GoodsController {
      * @return
      */
     @RequestMapping("list")
-    public String goodsList() {
+    public String goodsList(Model model) {
+        //返回所有商品分类
+        model.addAttribute("gcList", goodsCategoryService.selectCategoryList());
+        //返回所有商品品牌
+        model.addAttribute("brandList", brandService.selectBrandList());
         return "goods/goods-list";
     }
 
     /**
-     * 商品-列表页面跳转
+     * 商品-新增-页面跳转
      *
      * @return
      */
@@ -148,5 +152,18 @@ public class GoodsController {
         } else {
             return BaseResult.error();
         }
+    }
+
+    /**
+     * 商品列表-分页查询
+     * @param goods
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("listForPage")
+    @ResponseBody
+    public BaseResult selectGoodsListByPage(Goods goods, Integer pageNum, Integer pageSize){
+        return goodsService.selectGoodsListByPage(goods, pageNum, pageSize);
     }
 }
