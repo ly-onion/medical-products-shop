@@ -1,5 +1,6 @@
 package com.xxxx.manager.service.impl;
 
+import com.xxxx.common.util.JsonUtil;
 import com.xxxx.manager.mapper.GoodsCategoryMapper;
 import com.xxxx.manager.pojo.GoodsCategory;
 import com.xxxx.manager.pojo.GoodsCategoryExample;
@@ -7,7 +8,11 @@ import com.xxxx.manager.service.GoodsCategoryService;
 import com.xxxx.manager.vo.GoodsCategoryVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +30,10 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 
     @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
-
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+    @Value("${goods.category.list.key}")
+    private String goodsCategoryListKey;
     /*
      * 商品分类-新增分类-查询所有顶级分类
      * */
@@ -49,6 +57,8 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 
     @Override
     public int categorySave(GoodsCategory goodsCategory) {
+        //删除redis缓存的数据
+        redisTemplate.delete(redisTemplate.keys("goods*"));
         return goodsCategoryMapper.insertSelective(goodsCategory);
     }
 
@@ -94,6 +104,12 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 //            gcvList.add(gcv01);
 //        }
 //        return gcvList;
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        //查询redis缓存是否有数据，有数据直接返回,没有数据去数据库查询
+        String gcvListJson = valueOperations.get(goodsCategoryListKey);
+        if (!StringUtils.isEmpty(gcvListJson)) {
+            return JsonUtil.jsonToList(gcvListJson, GoodsCategoryVo.class);
+        }
         //===================================JDK8新特性
         GoodsCategoryExample example = new GoodsCategoryExample();
         //查询所有商品分类
@@ -111,37 +127,10 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         gcvList.forEach(e -> e.setChildren(map.getOrDefault(e.getId(), new ArrayList<>())));
         //拦截器返回level为1的List，顶级分类
         List<GoodsCategoryVo> gcvList01 = gcvList.stream().filter(e -> 1 == e.getLevel()).collect(Collectors.toList());
+        //放入redis缓存
+        valueOperations.set(goodsCategoryListKey, JsonUtil.object2JsonStr(gcvList01));
         //==================================JDK8新特性
         return gcvList01;
-
-        //创建查询对象
-        /*GoodsCategoryExample example = new GoodsCategoryExample();
-        //查询所有的商品分类list
-        List<GoodsCategory> list = goodsCategoryMapper.selectByExample(example);
-        //将List<GoodsCategory>转成List<GoodsCategoryVo>
-        List<GoodsCategoryVo> gcvList = list.stream().map(e -> {
-            GoodsCategoryVo gcv = new GoodsCategoryVo();
-            BeanUtils.copyProperties(e, gcv);
-            return gcv;
-        }).collect(Collectors.toList());
-        *//**
-         * 将List<GoodsCategoryVo>转成Map<parentId,List<GoodsCategoryVo>>
-         * 按parentId分组，key为parentId，value为parentId对应的List
-         *//*
-        Map<Short, List<GoodsCategoryVo>> map =
-                gcvList.stream().collect(Collectors.groupingBy(GoodsCategoryVo::getParentId));
-        *//**
-         * 循环，将childrenList赋值
-         *//*
-        gcvList.forEach(e -> e.setChildren(map.get(e.getId())));
-
-        *//**
-         * 拦截器，返回Level为1的List，也就是顶级分类
-         *//*
-        List<GoodsCategoryVo> gcvList01 = gcvList.stream().filter(e -> 1 ==
-                e.getLevel()).collect(Collectors.toList());
-
-        return gcvList01;*/
     }
 
 

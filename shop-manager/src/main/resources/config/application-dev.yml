@@ -10,6 +10,18 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
+  # Redis配置
+  redis:
+  timeout: 10000ms # 连接超时时间
+  host: 127.0.0.1 # Redis服务器地址
+  port: 6379 # Redis服务器端口
+  database: 0 # 选择哪个库，默认0库
+  lettuce:
+  pool:
+  max-active: 1024 # 最大连接数，默认 8
+  max-wait: 10000ms # 最大连接阻塞等待时间，单位毫秒，默认 -1
+  max-idle: 200 # 最大空闲连接，默认 8
+  min-idle: 5 # 最小空闲连接，默认 0
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/shop?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
@@ -69,3 +81,6 @@ mybatis:
 logging:
   level:
     com.xxx.manager.mapper: debug
+# Redis Key
+# 商品分类列表 Key
+goods.category.list.key: goods:category:list:goodsCategoryList

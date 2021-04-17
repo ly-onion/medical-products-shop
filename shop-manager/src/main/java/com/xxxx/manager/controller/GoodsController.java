@@ -10,6 +10,7 @@ import com.xxxx.manager.pojo.GoodsCategory;
 import com.xxxx.manager.pojo.GoodsImages;
 import com.xxxx.manager.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
