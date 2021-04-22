@@ -21,6 +21,7 @@
         <module>shop-common</module>
         <module>shop-manager</module>
         <module>shop-generator</module>
+        <module>shop-portal</module>
     </modules>
 
     <parent>
