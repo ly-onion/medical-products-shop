@@ -1,5 +1,6 @@
 package com.xxxx.portal;
 
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @DATE: 2021/4/22 14:53
  */
 @SpringBootApplication
+@EnableDubboConfiguration
 @MapperScan("con.xxxx.portal.mapper")
 public class PortalApplication {
     public static void main(String[] args) {

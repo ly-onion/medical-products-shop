@@ -22,6 +22,8 @@
         <module>shop-manager</module>
         <module>shop-generator</module>
         <module>shop-portal</module>
+        <module>shop-rpc</module>
+        <module>shop-rpc</module>
     </modules>
 
     <parent>
@@ -37,6 +39,10 @@
         <mysql.version>8.0.18</mysql.version>
         <druid.version>1.1.20</druid.version>
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
+        <!--dubbo 依赖-->
+        <dubbo.version>2.0.0</dubbo.version>
+        <!--zookeeper依赖-->
+        <zookeeper.version>0.11</zookeeper.version>
     </properties>
 
     <dependencyManagement>
@@ -67,6 +73,18 @@
                 <groupId>com.qiniu</groupId>
                 <artifactId>qiniu-java-sdk</artifactId>
                 <version>${qiniu.version}</version>
+            </dependency>
+            <!-- dubbo依赖 -->
+            <dependency>
+                <groupId>com.alibaba.spring.boot</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <!--zkClient依赖-->
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${zookeeper.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

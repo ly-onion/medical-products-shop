@@ -1,7 +1,5 @@
 package com.xxxx.manager.controller;
 
-import com.github.pagehelper.util.StringUtil;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.common.result.FileResult;
 import com.xxxx.manager.pojo.Brand;
@@ -10,7 +8,6 @@ import com.xxxx.manager.pojo.GoodsCategory;
 import com.xxxx.manager.pojo.GoodsImages;
 import com.xxxx.manager.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
