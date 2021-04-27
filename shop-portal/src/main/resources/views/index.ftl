@@ -140,9 +140,9 @@
         <div class="mmenu">
             <div class="s_hd">
                 <div id="s_search">
-                    <form action="" method="post"><input name="" type="text" class="search-input"/><input name=""
-                                                                                                          type="image"
-                                                                                                          src="${ctx}/images/btn_search.jpg"/>
+                    <form action="${ctx}/search/index" method="get">
+                        <input name="searchStr" type="text" class="search-input"/>
+                        <input name="" type="image" src="${ctx}/images/btn_search.jpg"/>
                     </form>
                 </div>
 

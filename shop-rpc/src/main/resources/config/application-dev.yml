@@ -44,7 +44,7 @@ spring:
     # 用 dubbo 协议在 20880 端口暴露服务
     protocol:
       name: dubbo
-      port: 20880
+      port: -1
     # 扫描需要暴露的服务接口包
     scan:
       base-packages: com.xxxx.rpc.service

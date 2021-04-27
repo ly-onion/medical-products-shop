@@ -1,5 +1,6 @@
 package com.xxxx.manager.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xxxx.common.result.BaseResult;
@@ -80,7 +81,7 @@ public class GoodsServiceImpl implements GoodsService {
                 "goodsName_:"
         };
         //构建分页对象
-        PageHelper.startPage(pageNum, pageSize);
+        Page<Object> page = PageHelper.startPage(pageNum, pageSize);
         //创建查询对象
         GoodsExample example = new GoodsExample();
         GoodsExample.Criteria criteria = example.createCriteria();

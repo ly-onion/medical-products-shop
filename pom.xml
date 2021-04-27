@@ -24,6 +24,7 @@
         <module>shop-portal</module>
         <module>shop-rpc</module>
         <module>shop-rpc</module>
+        <module>shop-sso</module>
     </modules>
 
     <parent>
