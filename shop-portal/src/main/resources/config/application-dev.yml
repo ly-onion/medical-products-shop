@@ -101,3 +101,6 @@ mybatis:
 logging:
   level:
     com.xxxx.manager.mapper: debug
+
+#用户票据key
+user.ticket: user:userTicket

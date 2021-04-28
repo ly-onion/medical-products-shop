@@ -36,6 +36,7 @@ public class PortalLoginInterceptor implements HandlerInterceptor {
 
     /**
      * 请求处理的方法之前执行
+     *
      * @param request
      * @param response
      * @param handler
@@ -49,20 +50,28 @@ public class PortalLoginInterceptor implements HandlerInterceptor {
         if (!StringUtils.isEmpty(ticket)) {
             //如果票据存在，进行验证
             Admin admin = ssoService.validate(ticket);
-            //将用户信息存入session，用于页面返显
-            request.getSession().setAttribute("user", admin);
-            //重新设置失效时间
-            ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-            valueOperations.set(usetTicket+":"+ticket, JsonUtil.object2JsonStr(admin), 30, TimeUnit.MINUTES);
-            return true;
+            if (admin != null) {
+                //将用户信息存入session，用于页面返显
+                request.getSession().setAttribute("user", admin);
+                //重新设置失效时间
+                ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+                valueOperations.set(usetTicket + ":" + ticket, JsonUtil.object2JsonStr(admin), 30, TimeUnit.MINUTES);
+                return true;
+            }else {
+                //清楚session信息
+                request.getSession().removeAttribute("user");
+            }
+        }else {
+            request.getSession().removeAttribute("user");
         }
         //票据不存在或者用户验证失败,重定向到登录页面
-        response.sendRedirect(request.getContextPath()+"/login");
+        response.sendRedirect(request.getContextPath() + "/login");
         return false;
     }
 
     /**
      * 请求处理的方法之后执行
+     *
      * @param request
      * @param response
      * @param handler
@@ -76,6 +85,7 @@ public class PortalLoginInterceptor implements HandlerInterceptor {
 
     /**
      * 处理后执行清理工作
+     *
      * @param request
      * @param response
      * @param handler

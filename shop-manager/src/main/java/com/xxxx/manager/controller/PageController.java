@@ -1,5 +1,7 @@
 package com.xxxx.manager.controller;
 
+import com.xxxx.manager.service.GoodsCategoryService;
+import com.xxxx.manager.service.GoodsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
