@@ -3,11 +3,9 @@
 <div id="s_tbar">
     <div class="s_hd">
         <#if user??>
-            <div class="tbar_lft">${user.userName}您好，欢迎来到shop商城！<a
-                        href="${ctx}/user/logout">退出</a></div>
+            <div class="tbar_lft">${user.userName}您好，欢迎来到shop商城！<a href="${ctx}/user/logout">退出</a></div>
         <#else>
-            <div class="tbar_lft">您好，欢迎来到shop商城！<a href="${ctx}/login">请登录</a> |
-                <a href="#">免费注册</a></div>
+            <div class="tbar_lft">您好，欢迎来到shop商城！<a href="${ctx}/login">请登录</a> | <a href="${ctx}/register">免费注册</a></div>
         </#if>
         <div class="tbar_rgt">
             <ul>

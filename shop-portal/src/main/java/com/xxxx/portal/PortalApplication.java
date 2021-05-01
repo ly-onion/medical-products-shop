@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("con.xxxx.portal.mapper")
 public class PortalApplication {
     public static void main(String[] args) {
+        System.out.println("");
         SpringApplication.run(PortalApplication.class, args);
     }
 }

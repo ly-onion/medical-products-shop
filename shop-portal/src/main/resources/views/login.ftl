@@ -107,22 +107,7 @@
 <div id="doc">
     <div id="s_hdw">
 
-        <div id="s_tbar">
-            <div class="s_hd">
-                <div class="tbar_lft">您好，欢迎来到EGO商城！<a href="#">请登录</a> | <a href="#">免费注册</a></div>
-                <div class="tbar_rgt">
-                    <ul>
-                        <li class="first"><a href="#">我的订单</a></li>
-                        <li><a href="#">我的EGO商城</a></li>
-                        <li><a href="#">帮助中心</a></li>
-                        <li><a href="#">联系客服</a></li>
-                        <li><a href="#">加入收藏</a></li>
-                        <li class="s_tel_str">服务热线：</li>
-                        <li class="s_tel">400-009-1906</li>
-                    </ul>
-                </div>
-            </div>
-        </div><!--s_tbar end-->
+        <#include "common/welcome.ftl">
 
         <div class="s_hd nav">
             <div id="s_logo"><a href="#"><img src="${ctx}/static/images/logo.png" border="0"/></a></div>
@@ -138,12 +123,7 @@
 
         <div class="mmenu">
             <div class="s_hd">
-                <div id="s_search">
-                    <form action="" method="post"><input name="" type="text" class="search-input"/><input name=""
-                                                                                                          type="image"
-                                                                                                          src="${ctx}/static/images/btn_search.jpg"/>
-                    </form>
-                </div>
+                <#include "common/search.ftl">
 
                 <div id="s_keyword">
                     <ul>
@@ -160,14 +140,7 @@
                     </ul>
                 </div>
 
-                <div id="s_cart">
-                    <ul>
-                        <li class="nums"><a href="" id="s_cart_nums1">购物车： <span>0</span> 件</a> <a href="" class="btn"
-                                                                                                   id="s_cart_nums2"></a>
-                        </li>
-                        <li class="checkout"><a href="#">去结算>></a></li>
-                    </ul>
-                </div>
+                <#include "common/cart.ftl">
 
                 <div id="s_cartbox" class="s_cartbox">您的购物车中暂无商品，赶快选择心爱的商品吧！</div>
 

@@ -149,14 +149,7 @@
                     </ul>
                 </div>
 
-                <div id="s_cart">
-                    <ul>
-                        <li class="nums"><a href="" id="s_cart_nums1">购物车： <span>0</span> 件</a> <a href="" class="btn"
-                                                                                                   id="s_cart_nums2"></a>
-                        </li>
-                        <li class="checkout"><a href="#">去结算>></a></li>
-                    </ul>
-                </div>
+                <#include "../common/cart.ftl">
 
                 <div id="s_cartbox" class="s_cartbox">您的购物车中暂无商品，赶快选择心爱的商品吧！</div>
 
@@ -1824,7 +1817,8 @@
 
     <div id="s_bdw">
         <div id="s_bd">
-            <div class="zadv"><a href="#"><img src="${ctx}/static/images/3215wa.jpg" width="980" height="62" alt=""/></a></div>
+            <div class="zadv"><a href="#"><img src="${ctx}/static/images/3215wa.jpg" width="980" height="62"
+                                               alt=""/></a></div>
 
             <div class="breadcrumbs">
                 <div class="f-l"><a href="#">全部结果</a><span>»</span><a href="#">食品、饮料、酒水</a><span>»</span><a href="#">进口食品</a><span>»</span>进口米
@@ -1879,23 +1873,28 @@
                     <div class="Topcon">
                         <ul>
                             <li>
-                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58" alt=""/></a>
+                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58"
+                                                 alt=""/></a>
                                 <p><a href="#">心相印优选装200抽2层塑装面巾纸</a><br/><strong class="red">￥10.9</strong></p>
                             </li>
                             <li>
-                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58" alt=""/></a>
+                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58"
+                                                 alt=""/></a>
                                 <p><a href="#">心相印优选装200抽2层塑装面巾纸</a><br/><strong class="red">￥10.9</strong></p>
                             </li>
                             <li>
-                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58" alt=""/></a>
+                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58"
+                                                 alt=""/></a>
                                 <p><a href="#">心相印优选装200抽2层塑装面巾纸</a><br/><strong class="red">￥10.9</strong></p>
                             </li>
                             <li>
-                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58" alt=""/></a>
+                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58"
+                                                 alt=""/></a>
                                 <p><a href="#">心相印优选装200抽2层塑装面巾纸</a><br/><strong class="red">￥10.9</strong></p>
                             </li>
                             <li class="last">
-                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58" alt=""/></a>
+                                <a href="#"><img src="${ctx}/static/images/124ad.jpg" width="58" height="58"
+                                                 alt=""/></a>
                                 <p><a href="#">心相印优选装200抽2层塑装面巾纸</a><br/><strong class="red">￥10.9</strong></p>
                             </li>
                         </ul>
@@ -1907,12 +1906,18 @@
                                                                     href="#"><b>清除</b></a></div>
                     <div class="browselist">
                         <ul class="cf">
-                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a></li>
-                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a></li>
-                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a></li>
-                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a></li>
-                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a></li>
-                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a></li>
+                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a>
+                            </li>
+                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a>
+                            </li>
+                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a>
+                            </li>
+                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a>
+                            </li>
+                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a>
+                            </li>
+                            <li><a href="#"><img src="${ctx}/static/images/21da.jpg" width="58" height="58" alt=""/></a>
+                            </li>
                         </ul>
                     </div>
                 </div><!--Toplist end-->
@@ -1926,7 +1931,8 @@
                         <h2>热卖推荐</h2>
                         <ul class="cf">
                             <li>
-                                <a href="#"><img src="${ctx}/static/images/21ad.jpg" width="115" height="115" alt=""/></a>
+                                <a href="#"><img src="${ctx}/static/images/21ad.jpg" width="115" height="115"
+                                                 alt=""/></a>
                                 <dl>
                                     <dt><a href="#">凌仕魅动男士香氛-契合</a></dt>
                                     <dd>特价：<strong class="red">￥52.9</strong></dd>
@@ -2150,7 +2156,9 @@
             <dt><a href="#">{{=it[i].goodsName}}</a></dt>
             <dd>特价：<strong class="red">￥{{=it[i].marketPrice}}</strong></dd>
             <dd><span class="startotal"></span></dd>
-            <dd><a class="addcat" href="#">加入购物车</a></dd>
+            <dd><a class="addcat" href="javascript:void(0);"
+                   onclick="addToCart('{{=it[i].goodsId}}', '{{=it[i].goodsName}}','{{=it[i].marketPrice}}', '{{=it[i].originalImg}}');">加入购物车</a>
+            </dd>
         </dl>
     </li>
     {{ } }}

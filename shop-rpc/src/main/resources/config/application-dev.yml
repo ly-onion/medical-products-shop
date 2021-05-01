@@ -64,3 +64,5 @@ logging:
 # Redis Key
 # 商品分类列表 Key
 goods.category.list.key: goods:category:list:goodsCategoryList
+#用户购物车key
+user.cart: userCart

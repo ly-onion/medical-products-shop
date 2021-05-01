@@ -1,5 +1,6 @@
 package com.xxxx.portal.config;
 
+import com.xxxx.portal.interceptor.PortalCommonInterceptor;
 import com.xxxx.portal.interceptor.PortalLoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,8 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private PortalLoginInterceptor loginInterceptor;
+    @Autowired
+    private PortalCommonInterceptor commonInterceptor;
 
     /**
      * 添加自定义的拦截器
@@ -27,6 +30,8 @@ public class MvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(commonInterceptor)
+                .addPathPatterns("/**");
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/cart/**")
                 .excludePathPatterns("/static/**")

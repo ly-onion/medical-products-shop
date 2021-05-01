@@ -124,12 +124,7 @@
 
         <div class="mmenu">
             <div class="s_hd">
-                <div id="s_search">
-                    <form action="${ctx}/search/index" method="get">
-                        <input name="searchStr" type="text" class="search-input"/>
-                        <input name="" type="image" src="${ctx}/static/images/btn_search.jpg"/>
-                    </form>
-                </div>
+                <#include "common/search.ftl">
 
                 <div id="s_keyword">
                     <ul>
@@ -146,14 +141,7 @@
                     </ul>
                 </div>
 
-                <div id="s_cart">
-                    <ul>
-                        <li class="nums"><a href="" id="s_cart_nums1">购物车： <span>0</span> 件</a> <a href="" class="btn"
-                                                                                                   id="s_cart_nums2"></a>
-                        </li>
-                        <li class="checkout"><a href="#">去结算>></a></li>
-                    </ul>
-                </div>
+                <#include "common/cart.ftl">
 
                 <div id="s_cartbox" class="s_cartbox">您的购物车中暂无商品，赶快选择心爱的商品吧！</div>
 

@@ -25,6 +25,7 @@
         <module>shop-rpc</module>
         <module>shop-rpc</module>
         <module>shop-sso</module>
+        <module>shop-order</module>
     </modules>
 
     <parent>
@@ -44,6 +45,8 @@
         <dubbo.version>2.0.0</dubbo.version>
         <!--zookeeper依赖-->
         <zookeeper.version>0.11</zookeeper.version>
+        <!-- alipay 依赖 -->
+        <alipay.version>4.8.73.ALL</alipay.version>
     </properties>
 
     <dependencyManagement>
@@ -86,6 +89,12 @@
                 <groupId>com.101tec</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${zookeeper.version}</version>
+            </dependency>
+            <!-- alipay依赖 -->
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
