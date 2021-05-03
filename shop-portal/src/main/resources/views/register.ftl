@@ -1883,7 +1883,7 @@
                                 <!--data-cbfn : 回调函数名(必须)-->
                                 <!--data-biz-state : 业务自定义透传参数(可选)-->
                                 <button id="TencentCaptcha"
-                                        data-appid="2086582926"
+                                        data-appid="2096951909"
                                         data-cbfn="callback"
                                         type="button">验证
                                 </button>

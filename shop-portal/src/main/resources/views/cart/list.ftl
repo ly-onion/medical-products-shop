@@ -190,6 +190,33 @@
                         }
                     });
                 }
+
+                function deleteGoods(goodsId){
+                    $.ajax({
+                        url: "${ctx}/cart/deleteCartGood",
+                        type: "Get",
+                        data: {
+                            goodsId: goodsId
+                        },
+                        dataType: "JSON",
+                        success: function (result){
+                            if (200 == result.code) {
+                                location.reload();
+                        }
+                        },
+                        error: function (result) {
+                            console.log(result);
+                            // status=200 statusText="OK"说明请求正常，无返回结果
+                            if (200 == result.status) {
+                                // 跳转登录页面
+                                location.href = "${ctx}/login";
+                            } else {
+                                // 系统真的出错了
+                                layer.alert("亲，系统正在升级中，请稍后再试！");
+                            }
+                        }
+                    });
+                }
             </script>
 
             <div class="cartlist">
@@ -225,7 +252,7 @@
                                     </td>
 
                                     <td>${cart.addTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                    <td><a href="${ctx}/cart/deleteCartGood" class="blue">删除</a></td>
+                                    <td><a href="javascript:void(0)" onclick="deleteGoods(${cart.goodsId})" class="blue">删除</a></td>
                                 </tr>
                             </#list>
                         </#if>

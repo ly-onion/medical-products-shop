@@ -1,7 +1,7 @@
 package com.xxxx.manager.mapper;
 
-import com.xxxx.manager.pojo.Goods;
-import com.xxxx.manager.pojo.GoodsExample;
+import com.xxxx.common.pojo.Goods;
+import com.xxxx.common.pojo.GoodsExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

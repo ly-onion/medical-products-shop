@@ -18,7 +18,7 @@ spring:
       max-active: 20                        # 最大连接数
       max-idle: 20                          # 最大空闲
       min-idle: 1                           # 最小空闲
-      max-wait: 60000                       # 最长等待时间
+      max-wait: 6000000                       # 最长等待时间
   # redis 缓存
   redis:
     timeout: 10000                          # 连接超时时间
@@ -66,3 +66,6 @@ logging:
 goods.category.list.key: goods:category:list:goodsCategoryList
 #用户购物车key
 user.cart: userCart
+order.alllist: order:alllist:orderAllList
+
+redis.order.increment: order:increment

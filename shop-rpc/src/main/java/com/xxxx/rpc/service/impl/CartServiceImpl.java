@@ -4,15 +4,11 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.xxxx.common.pojo.Admin;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.common.util.JsonUtil;
-import com.xxxx.rpc.mapper.CartMapper;
-import com.xxxx.rpc.pojo.Cart;
-import com.xxxx.rpc.pojo.CartExample;
 import com.xxxx.rpc.service.CartService;
 import com.xxxx.rpc.vo.CartResult;
 import com.xxxx.rpc.vo.CartVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -40,8 +36,6 @@ public class CartServiceImpl implements CartService {
     private RedisTemplate<String, Object> redisTemplate;
     @Value("${user.cart}")
     private String userCart;
-    @Autowired
-    private CartMapper cartMapper;
 
     /**
      * 加入购物车
@@ -174,28 +168,11 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public BaseResult deleteCartGood(CartVo cartVo, Admin admin) {
-        //判断用户是否存在
-//        if (null == admin || null == admin.getAdminId()) {
-//            return BaseResult.error();
-//        }
-//        //判断商品是否存在
-//        if (cartVo.getGoodsId() == null) {
-//            return BaseResult.error();
-//        }
-//        //从数据库判断商品是否在购物车中
-//        CartExample example = new CartExample();
-//        example.createCriteria().andGoodsIdEqualTo(cartVo.getGoodsId()).andUserIdEqualTo(Integer.valueOf(admin.getAdminId()));
-//        List<Cart> carts = cartMapper.selectByExample(example);
-//        if (carts.size()>1||carts.size()==0){
-//            return BaseResult.error();
-//        }
-//        //数据库删除商品
-//        cartMapper.deleteByExample(example);
-        //删除redis缓存中的这件商品
+        if (null == admin || null == admin.getAdminId()) {
+            return BaseResult.error();
+        }
         hashOperations = redisTemplate.opsForHash();
-        Map<String, String> cartMap = hashOperations.entries(userCart + ":" + admin.getAdminId());
-        cartMap.remove(cartVo.getGoodsId());
-        hashOperations.putAll(userCart + ":" + admin.getAdminId(), cartMap);
+        hashOperations.delete(userCart + ":" + admin.getAdminId(), String.valueOf(cartVo.getGoodsId()));
         return BaseResult.success();
     }
 }

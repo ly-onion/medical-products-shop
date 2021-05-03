@@ -2,7 +2,7 @@ package com.xxxx.rpc.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.xxxx.common.util.JsonUtil;
-import com.xxxx.rpc.mapper.GoodsCategoryMapper;
+import com.xxxx.rpc.mapper.GoodsCategoryMapperRPC;
 import com.xxxx.rpc.pojo.GoodsCategory;
 import com.xxxx.rpc.pojo.GoodsCategoryExample;
 import com.xxxx.rpc.service.GoodsCategoryService;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class GoodsCategoryServiceImpl implements GoodsCategoryService {
 
     @Autowired
-    private GoodsCategoryMapper goodsCategoryMapper;
+    private GoodsCategoryMapperRPC goodsCategoryMapperRPC;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
     @Value("${goods.category.list.key}")
@@ -43,43 +43,6 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
      * */
     @Override
     public List<GoodsCategoryVo> selectCategoryListForView() {
-//        GoodsCategoryExample example = new GoodsCategoryExample();
-//        example.createCriteria().andParentIdEqualTo((short) 0).andLevelEqualTo((byte) 1);
-//        List<GoodsCategory> gcList = goodsCategoryMapper.selectByExample(example);
-//        List<GoodsCategoryVo> gcvList = new ArrayList<>();
-//        for (GoodsCategory gc01 : gcList) {
-//            GoodsCategoryVo gcv01 = new GoodsCategoryVo();
-//            //把GoodsCategory对象转成GoodsCategoryVo对象
-//            BeanUtils.copyProperties(gc01,gcv01);
-//            //清空example
-//            example.clear();
-//            example.createCriteria().andParentIdEqualTo(gc01.getId()).andLevelEqualTo((byte) 2);
-//            //查询二级分类
-//            List<GoodsCategory> gcList02 = goodsCategoryMapper.selectByExample(example);
-//            List<GoodsCategoryVo> gcvList02 = new ArrayList<>();
-//            for (GoodsCategory gc02 : gcList02) {
-//                GoodsCategoryVo gcv02 = new GoodsCategoryVo();
-//                BeanUtils.copyProperties(gc02,gcv02);
-//                //清空example
-//                example.clear();
-//                example.createCriteria().andParentIdEqualTo(gc02.getId()).andLevelEqualTo((byte) 3);
-//                //查询三级分类
-//                List<GoodsCategory> gcList03 = goodsCategoryMapper.selectByExample(example);
-//                List<GoodsCategoryVo> gcvList03 = new ArrayList<>();
-//                for (GoodsCategory gc03 : gcList03) {
-//                    GoodsCategoryVo gcv03 = new GoodsCategoryVo();
-//                    BeanUtils.copyProperties(gc03,gcv03);
-//                    gcvList03.add(gcv03);
-//                }
-//                //把三级分类List放入二级分类的对象里
-//                gcv02.setChildren(gcvList03);
-//                gcvList02.add(gcv02);
-//            }
-//            //把二级分类放入一级分类的对象里
-//            gcv01.setChildren(gcvList02);
-//            gcvList.add(gcv01);
-//        }
-//        return gcvList;
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
         //查询redis缓存是否有数据，有数据直接返回,没有数据去数据库查询
         String gcvListJson = valueOperations.get(goodsCategoryListKey);
@@ -89,7 +52,7 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService {
         //===================================JDK8新特性
         GoodsCategoryExample example = new GoodsCategoryExample();
         //查询所有商品分类
-        List<GoodsCategory> list = goodsCategoryMapper.selectByExample(example);
+        List<GoodsCategory> list = goodsCategoryMapperRPC.selectByExample(example);
         //将GoodsCategory对象转成GoodsCategoryVo对象
         List<GoodsCategoryVo> gcvList = list.stream().map(e -> {
             GoodsCategoryVo gcv = new GoodsCategoryVo();

@@ -7,18 +7,16 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.xxxx.common.pojo.Admin;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.order.config.AlipayConfig;
-import com.xxxx.order.pojo.Order;
-import com.xxxx.order.service.OrderService;
+import com.xxxx.common.pojo.Order;
+import com.xxxx.rpc.service.OrderService;
 import com.xxxx.rpc.service.CartService;
 import com.xxxx.rpc.vo.CartResult;
-import org.bouncycastle.math.raw.Mod;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 订单Controller
@@ -32,7 +30,7 @@ public class OrderController {
 
 	@Reference(interfaceClass = CartService.class)
 	private CartService cartService;
-	@Autowired
+	@Reference(interfaceClass = OrderService.class)
 	private OrderService orderService;
 
 	/**
@@ -130,12 +128,16 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping("myOrder")
-	public String myOrder() {
+	public String myOrder(HttpServletRequest request, Model model) {
+		Admin admin = (Admin) request.getSession().getAttribute("user");
+		List<Order> orderList = orderService.selectOrderByUserId(admin);
+		model.addAttribute("orderList", orderList);
+
 		return "order/myOrder";
 	}
 
 	/**
-	 * 支付宝跳转回调页面
+	 * 支付宝跳转回调页面(异步通知)
 	 * @param model
 	 * @return
 	 */

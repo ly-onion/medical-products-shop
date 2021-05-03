@@ -49,12 +49,14 @@ public class ManagerLoginInterceptor implements HandlerInterceptor {
         if (!StringUtils.isEmpty(ticket)) {
             //如果票据存在，进行验证
             Admin admin = ssoService.validate(ticket);
-            //将用户信息存入session，用于页面返显
-            request.getSession().setAttribute("user", admin);
-            //重新设置失效时间
-            ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
-            valueOperations.set(usetTicket+":"+ticket, JsonUtil.object2JsonStr(admin), 30, TimeUnit.MINUTES);
-            return true;
+            if (admin !=null) {
+                //将用户信息存入session，用于页面返显
+                request.getSession().setAttribute("user", admin);
+                //重新设置失效时间
+                ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+                valueOperations.set(usetTicket + ":" + ticket, JsonUtil.object2JsonStr(admin), 30, TimeUnit.MINUTES);
+                return true;
+            }
         }
         //票据不存在或者用户验证失败,重定向到登录页面
         response.sendRedirect(request.getContextPath()+"/login");

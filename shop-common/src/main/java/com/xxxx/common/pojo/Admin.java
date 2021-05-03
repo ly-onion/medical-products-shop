@@ -48,21 +48,6 @@ public class Admin implements Serializable {
     private String lastIp;
 
     /**
-     * lang_type
-     */
-    private String langType;
-
-    /**
-     * agency_id
-     */
-    private Short agencyId;
-
-    /**
-     * suppliers_id
-     */
-    private Short suppliersId;
-
-    /**
      * 角色id
      */
     private Short roleId;
@@ -136,30 +121,6 @@ public class Admin implements Serializable {
         this.lastIp = lastIp == null ? null : lastIp.trim();
     }
 
-    public String getLangType() {
-        return langType;
-    }
-
-    public void setLangType(String langType) {
-        this.langType = langType == null ? null : langType.trim();
-    }
-
-    public Short getAgencyId() {
-        return agencyId;
-    }
-
-    public void setAgencyId(Short agencyId) {
-        this.agencyId = agencyId;
-    }
-
-    public Short getSuppliersId() {
-        return suppliersId;
-    }
-
-    public void setSuppliersId(Short suppliersId) {
-        this.suppliersId = suppliersId;
-    }
-
     public Short getRoleId() {
         return roleId;
     }
@@ -182,9 +143,6 @@ public class Admin implements Serializable {
         sb.append(", addTime=").append(addTime);
         sb.append(", lastLogin=").append(lastLogin);
         sb.append(", lastIp=").append(lastIp);
-        sb.append(", langType=").append(langType);
-        sb.append(", agencyId=").append(agencyId);
-        sb.append(", suppliersId=").append(suppliersId);
         sb.append(", roleId=").append(roleId);
         sb.append("]");
         return sb.toString();

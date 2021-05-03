@@ -110,40 +110,40 @@
 
         <#include "common/welcome.ftl">
 
-        <div class="s_hd nav">
-            <div id="s_logo"><a href="#"><img src="${ctx}/static/images/logo.png" border="0"/></a></div>
-            <div id="s_nav">
-                <ul>
-                    <li class="first cur"><a href="#">首页</a><span></span></li>
-                    <li><a href="#">积分兑换</a><span></span></li>
-                    <li><a href="#">抢购</a><span></span></li>
-                    <li class="last"><a href="#">礼品</a><span></span></li>
-                </ul>
-            </div>
-        </div><!--s_hd end-->
+<#--        <div class="s_hd nav">-->
+<#--            <div id="s_logo"><a href="#"><img src="${ctx}/static/images/logo.png" border="0"/></a></div>-->
+<#--            <div id="s_nav">-->
+<#--                <ul>-->
+<#--                    <li class="first cur"><a href="#">首页</a><span></span></li>-->
+<#--                    <li><a href="#">积分兑换</a><span></span></li>-->
+<#--                    <li><a href="#">抢购</a><span></span></li>-->
+<#--                    <li class="last"><a href="#">礼品</a><span></span></li>-->
+<#--                </ul>-->
+<#--            </div>-->
+<#--        </div><!--s_hd end&ndash;&gt;-->
 
         <div class="mmenu">
             <div class="s_hd">
                 <#include "common/search.ftl">
 
-                <div id="s_keyword">
-                    <ul>
-                        <li><strong>热门搜索：</strong></li>
-                        <li><a href="#">贝玲妃</a></li>
-                        <li><a href="#">SKII</a></li>
-                        <li><a href="#">阿芙</a></li>
-                        <li><a href="#">罗莱家纺</a></li>
-                        <li><a href="#">glasslock</a></li>
-                        <li><a href="#">翡翠</a></li>
-                        <li><a href="#">珍珠</a></li>
-                        <li><a href="#">银饰</a></li>
-                        <li><a href="#">机械表</a></li>
-                    </ul>
-                </div>
+<#--                <div id="s_keyword">-->
+<#--                    <ul>-->
+<#--                        <li><strong>热门搜索：</strong></li>-->
+<#--                        <li><a href="#">贝玲妃</a></li>-->
+<#--                        <li><a href="#">SKII</a></li>-->
+<#--                        <li><a href="#">阿芙</a></li>-->
+<#--                        <li><a href="#">罗莱家纺</a></li>-->
+<#--                        <li><a href="#">glasslock</a></li>-->
+<#--                        <li><a href="#">翡翠</a></li>-->
+<#--                        <li><a href="#">珍珠</a></li>-->
+<#--                        <li><a href="#">银饰</a></li>-->
+<#--                        <li><a href="#">机械表</a></li>-->
+<#--                    </ul>-->
+<#--                </div>-->
 
                 <#include "common/cart.ftl">
 
-                <div id="s_cartbox" class="s_cartbox">您的购物车中暂无商品，赶快选择心爱的商品吧！</div>
+
 
                 <div id="s_cats">
                     <div class="cat_hd"><h3><a href="#">所有商品分类</a></h3></div>
@@ -159,6 +159,7 @@
 
     </div><!--s_hdw end-->
 
+    <#--广告轮播位-->
     <div id="s_bdw">
         <div id="s_bd">
             <div class="cf">

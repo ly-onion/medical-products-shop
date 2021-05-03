@@ -63,6 +63,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+        <!-- 腾讯云依赖 -->
+        <dependency>
+            <groupId>com.tencentcloudapi</groupId>
+            <artifactId>tencentcloud-sdk-java</artifactId>
+        </dependency>
         <!--dubbo 依赖-->
         <dependency>
             <groupId>com.alibaba.spring.boot</groupId>

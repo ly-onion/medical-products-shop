@@ -63,11 +63,13 @@ btn-flat">修改密码</a>
                     <input type="text" name="q" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
               <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
-                          class="fa fa-search"></i></button>
+                          class="fa fa-search"></i>
+              </button>
             </span>
                 </div>
                 <input type="hidden" name="__hash__"
-                       value="40390ff8c1de6e5b5f80bd80d3196959_8f39a041787ac9854b174964cdc80849"/></form>
+                       value="40390ff8c1de6e5b5f80bd80d3196959_8f39a041787ac9854b174964cdc80849"/>
+            </form>
             <!-- /.search form -->
             <ul class="sidebar-menu">
                 <li class="treeview">
@@ -173,7 +175,7 @@ btn-flat">修改密码</a>
                     </a>
                     <ul class="treeview-menu">
                         <li onclick="makecss(this)" data-id="index_Order">
-                            <a href='订单管理/订单列表.html' target='rightContent'><i class="fa fa-circle-o"></i>订单列表</a>
+                            <a href='${ctx}/orders/orderList' target='rightContent'><i class="fa fa-circle-o"></i>订单列表</a>
                         </li>
                         <li onclick="makecss(this)" data-id="delivery_list_Order">
                             <a href='订单管理/发货单.html' target='rightContent'><i class="fa fa-circle-o"></i>发货单</a>

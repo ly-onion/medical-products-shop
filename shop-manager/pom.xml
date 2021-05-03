@@ -28,12 +28,12 @@
             <artifactId>shop-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- shop rpc 依赖 -->
-<!--        <dependency>-->
-<!--            <groupId>com.xxxx</groupId>-->
-<!--            <artifactId>shop-rpc</artifactId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--        </dependency>-->
+<!--         shop rpc 依赖-->
+        <dependency>
+            <groupId>com.xxxx</groupId>
+            <artifactId>shop-rpc</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- shop sso 依赖 -->
         <dependency>
             <groupId>com.xxxx</groupId>

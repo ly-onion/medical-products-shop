@@ -4,10 +4,10 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xxxx.common.pojo.Goods;
+import com.xxxx.common.pojo.GoodsExample;
 import com.xxxx.common.result.ShopPageInfo;
 import com.xxxx.rpc.mapper.GoodsMapper;
-import com.xxxx.rpc.pojo.Goods;
-import com.xxxx.rpc.pojo.GoodsExample;
 import com.xxxx.rpc.service.SearchService;
 import com.xxxx.rpc.vo.GoodsVo;
 import org.springframework.beans.BeanUtils;
@@ -38,7 +38,6 @@ public class SearchServiceImpl implements SearchService {
         GoodsExample example = new GoodsExample();
         example.createCriteria().andGoodsNameLike("%" + searchStr + "%");
         List<Goods> goodsList = goodsMapper.selectByExample(example);
-        System.out.println("goodsList.getClass() = " + goodsList.getClass());
         Page<GoodsVo> goodsVoList = new Page<>();
         BeanUtils.copyProperties(goodsList, goodsVoList);
 //        goodsVoList.setTotal(((Page)goodsList).getTotal());
@@ -48,8 +47,6 @@ public class SearchServiceImpl implements SearchService {
             goodsVoList.add(goodsVo);
         }
         PageInfo<GoodsVo> pageInfo = new PageInfo<>(goodsVoList);
-        System.out.println("pageInfo.getTotal() = " + pageInfo.getTotal());
-        System.out.println("goodsVoList = " + goodsVoList);
         shopPageInfo = new ShopPageInfo<>(pageNum, pageSize, pageInfo);
         return shopPageInfo;
     }

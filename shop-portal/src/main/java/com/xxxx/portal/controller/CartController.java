@@ -3,20 +3,15 @@ package com.xxxx.portal.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.xxxx.common.pojo.Admin;
 import com.xxxx.common.result.BaseResult;
-import com.xxxx.common.util.BigDecimalUtil;
 import com.xxxx.rpc.service.CartService;
 import com.xxxx.rpc.vo.CartResult;
 import com.xxxx.rpc.vo.CartVo;
-import com.xxxx.rpc.vo.CartVoVo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -83,7 +78,7 @@ public class CartController {
      */
     @RequestMapping("clearCart")
     @ResponseBody
-    public BaseResult claarCart(HttpServletRequest request) {
+    public BaseResult clearCart(HttpServletRequest request) {
         Admin admin = (Admin) request.getSession().getAttribute("user");
         return cartService.clearCart(admin);
     }
@@ -95,6 +90,7 @@ public class CartController {
      * @return
      */
     @RequestMapping("deleteCartGood")
+    @ResponseBody
     public BaseResult deleteCartGood(HttpServletRequest request, CartVo cartVo) {
         Admin admin = (Admin) request.getSession().getAttribute("user");
         return cartService.deleteCartGood(cartVo, admin);

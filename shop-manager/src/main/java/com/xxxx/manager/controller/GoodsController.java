@@ -3,7 +3,7 @@ package com.xxxx.manager.controller;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.common.result.FileResult;
 import com.xxxx.manager.pojo.Brand;
-import com.xxxx.manager.pojo.Goods;
+import com.xxxx.common.pojo.Goods;
 import com.xxxx.manager.pojo.GoodsCategory;
 import com.xxxx.manager.pojo.GoodsImages;
 import com.xxxx.manager.service.*;

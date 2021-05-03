@@ -4,88 +4,88 @@
 <html>
 <head>
     <#include "../../head.ftl">
-    <script type="text/javascript">
-        function delfunc(obj) {
-            layer.confirm('确认删除？', {
-                    btn: ['确定', '取消'] //按钮
-                }, function () {
-                    $.ajax({
-                        type: 'post',
-                        url: $(obj).attr('data-url'),
-                        data: {act: 'del', del_id: $(obj).attr('data-id')},
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data == 1) {
-                                layer.msg('操作成功', {icon: 1});
-                                $(obj).parent().parent().remove();
-                            } else {
-                                layer.msg(data, {icon: 2, time: 2000});
-                            }
-                            layer.closeAll();
-                        }
-                    })
-                }, function (index) {
-                    layer.close(index);
-                    return false;// 取消
-                }
-            );
-        }
+<#--    <script type="text/javascript">-->
+<#--        function delfunc(obj) {-->
+<#--            layer.confirm('确认删除？', {-->
+<#--                    btn: ['确定', '取消'] //按钮-->
+<#--                }, function () {-->
+<#--                    $.ajax({-->
+<#--                        type: 'post',-->
+<#--                        url: $(obj).attr('data-url'),-->
+<#--                        data: {act: 'del', del_id: $(obj).attr('data-id')},-->
+<#--                        dataType: 'json',-->
+<#--                        success: function (data) {-->
+<#--                            if (data == 1) {-->
+<#--                                layer.msg('操作成功', {icon: 1});-->
+<#--                                $(obj).parent().parent().remove();-->
+<#--                            } else {-->
+<#--                                layer.msg(data, {icon: 2, time: 2000});-->
+<#--                            }-->
+<#--                            layer.closeAll();-->
+<#--                        }-->
+<#--                    })-->
+<#--                }, function (index) {-->
+<#--                    layer.close(index);-->
+<#--                    return false;// 取消-->
+<#--                }-->
+<#--            );-->
+<#--        }-->
 
-        //全选
-        function selectAll(name, obj) {
-            $('input[name*=' + name + ']').prop('checked', $(obj).checked);
-        }
+<#--        //全选-->
+<#--        function selectAll(name, obj) {-->
+<#--            $('input[name*=' + name + ']').prop('checked', $(obj).checked);-->
+<#--        }-->
 
-        function get_help(obj) {
-            layer.open({
-                type: 2,
-                title: '帮助手册',
-                shadeClose: true,
-                shade: 0.3,
-                area: ['90%', '90%'],
-                content: $(obj).attr('data-url'),
-            });
-        }
+<#--        function get_help(obj) {-->
+<#--            layer.open({-->
+<#--                type: 2,-->
+<#--                title: '帮助手册',-->
+<#--                shadeClose: true,-->
+<#--                shade: 0.3,-->
+<#--                area: ['90%', '90%'],-->
+<#--                content: $(obj).attr('data-url'),-->
+<#--            });-->
+<#--        }-->
 
-        function delAll(obj, name) {
-            var a = [];
-            $('input[name*=' + name + ']').each(function (i, o) {
-                if ($(o).is(':checked')) {
-                    a.push($(o).val());
-                }
-            })
-            if (a.length == 0) {
-                layer.alert('请选择删除项', {icon: 2});
-                return;
-            }
-            layer.confirm('确认删除？', {btn: ['确定', '取消']}, function () {
-                    $.ajax({
-                        type: 'get',
-                        url: $(obj).attr('data-url'),
-                        data: {act: 'del', del_id: a},
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data == 1) {
-                                layer.msg('操作成功', {icon: 1});
-                                $('input[name*=' + name + ']').each(function (i, o) {
-                                    if ($(o).is(':checked')) {
-                                        $(o).parent().parent().remove();
-                                    }
-                                })
-                            } else {
-                                layer.msg(data, {icon: 2, time: 2000});
-                            }
-                            layer.closeAll();
-                        }
-                    })
-                }, function (index) {
-                    layer.close(index);
-                    return false;// 取消
-                }
-            );
-        }
-    </script>
-    <meta name="__hash__" content="de25d42444751b4d059ec9006eb4ebb9_18e7b463027ae778e1bc48f3dec702d7"/>
+<#--        function delAll(obj, name) {-->
+<#--            var a = [];-->
+<#--            $('input[name*=' + name + ']').each(function (i, o) {-->
+<#--                if ($(o).is(':checked')) {-->
+<#--                    a.push($(o).val());-->
+<#--                }-->
+<#--            })-->
+<#--            if (a.length == 0) {-->
+<#--                layer.alert('请选择删除项', {icon: 2});-->
+<#--                return;-->
+<#--            }-->
+<#--            layer.confirm('确认删除？', {btn: ['确定', '取消']}, function () {-->
+<#--                    $.ajax({-->
+<#--                        type: 'get',-->
+<#--                        url: $(obj).attr('data-url'),-->
+<#--                        data: {act: 'del', del_id: a},-->
+<#--                        dataType: 'json',-->
+<#--                        success: function (data) {-->
+<#--                            if (data == 1) {-->
+<#--                                layer.msg('操作成功', {icon: 1});-->
+<#--                                $('input[name*=' + name + ']').each(function (i, o) {-->
+<#--                                    if ($(o).is(':checked')) {-->
+<#--                                        $(o).parent().parent().remove();-->
+<#--                                    }-->
+<#--                                })-->
+<#--                            } else {-->
+<#--                                layer.msg(data, {icon: 2, time: 2000});-->
+<#--                            }-->
+<#--                            layer.closeAll();-->
+<#--                        }-->
+<#--                    })-->
+<#--                }, function (index) {-->
+<#--                    layer.close(index);-->
+<#--                    return false;// 取消-->
+<#--                }-->
+<#--            );-->
+<#--        }-->
+<#--    </script>-->
+<#--    <meta name="__hash__" content="de25d42444751b4d059ec9006eb4ebb9_18e7b463027ae778e1bc48f3dec702d7"/>-->
 </head>
 <body style="background-color:#ecf0f5;">
 
@@ -232,11 +232,13 @@
                                                         </td>
                                                         <td><span>${gcv03.mobileName}</span></td>
                                                         <td>
-                                                            <img width="20" height="20" src="${ctx}/static/images/cancel.png"
+                                                            <img width="20" height="20"
+                                                                 src="${ctx}/static/images/cancel.png"
                                                                  onclick="changeTableVal('goods_category','id','100','is_hot',this)"/>
                                                         </td>
                                                         <td>
-                                                            <img width="20" height="20" src="${ctx}/static/images/yes.png"
+                                                            <img width="20" height="20"
+                                                                 src="${ctx}/static/images/yes.png"
                                                                  onclick="changeTableVal('goods_category','id','100','is_show',this)"/>
                                                         </td>
                                                         <td>

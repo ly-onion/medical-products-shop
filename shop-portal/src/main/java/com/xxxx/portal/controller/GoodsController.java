@@ -1,35 +1,26 @@
 package com.xxxx.portal.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.xxxx.rpc.service.GoodsCategoryService;
-import com.xxxx.rpc.vo.GoodsCategoryVo;
-import org.springframework.stereotype.Controller;
+import com.xxxx.common.pojo.Goods;
+import com.xxxx.rpc.service.GoodsService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * @PROJECT_NAME: shop
  * @DESCRIPTION:
  * @USER: 洋葱
- * @DATE: 2021/4/23 17:34
+ * @DATE: 2021/5/3 16:28
  */
-@Controller
-@RequestMapping("goodsCategory")
+@RequestMapping("goods")
 public class GoodsController {
 
-    @Reference(interfaceClass = GoodsCategoryService.class)
-    private GoodsCategoryService goodsCategoryService;
+    @Reference(interfaceClass = GoodsService.class)
+    private GoodsService goodsService;
 
-    /**
-     * 查询商品分类-列表
-     * @return
-     */
-    @RequestMapping("list")
+    @RequestMapping("getGood")
     @ResponseBody
-    public List<GoodsCategoryVo> categoryList(){
-        return goodsCategoryService.selectCategoryListForView();
+    public Goods getGood(Integer goodsId){
+        return goodsService.selectGoodsById(goodsId);
     }
-
 }
