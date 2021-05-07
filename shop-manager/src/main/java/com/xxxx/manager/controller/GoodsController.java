@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,7 +39,7 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
     @Autowired
-    private GoodsImagesService goodsImagesService;
+    private ImagesService imagesService;
     @Autowired
     private UploadService uploadService;
 
@@ -99,14 +100,18 @@ public class GoodsController {
      *
      * @return
      */
-    @RequestMapping("add")
-    public String goodsAdd(Model model) {
+    @RequestMapping("add/{id}")
+    public String goodsAdd(@PathVariable("id") Integer goodsId, Model model) {
         //查询顶级分类
         List<GoodsCategory> gcList = goodsCategoryService.selectCategoryTopList();
         model.addAttribute("gcList", gcList);
 
         List<Brand> brandList = brandService.selectBrandList();
         model.addAttribute("brandList", brandList);
+        if (goodsId != -1) {
+            Goods good = goodsService.selectGoodsByGoodsId(goodsId);
+            model.addAttribute("good", good);
+        }
         return "goods/goods-add";
     }
 
@@ -119,7 +124,11 @@ public class GoodsController {
     @RequestMapping("save")
     @ResponseBody
     public BaseResult saveGoods(Goods goods) {
-        return goodsService.saveGoods(goods);
+        if (goods.getGoodsId() == null) {
+            return goodsService.saveGoods(goods);
+        } else {
+            return goodsService.updateGoodsByGoodsId(goods);
+        }
     }
 
 
@@ -146,7 +155,7 @@ public class GoodsController {
             GoodsImages goodsImages = new GoodsImages();
             goodsImages.setGoodsId(goodsId);
             goodsImages.setImageUrl(fileResult.getFileUrl());
-            return goodsImagesService.saveGoodsImages(goodsImages);
+            return imagesService.saveGoodsImages(goodsImages);
         } else {
             return BaseResult.error();
         }
@@ -154,6 +163,7 @@ public class GoodsController {
 
     /**
      * 商品列表-分页查询
+     *
      * @param goods
      * @param pageNum
      * @param pageSize
@@ -161,7 +171,14 @@ public class GoodsController {
      */
     @RequestMapping("listForPage")
     @ResponseBody
-    public BaseResult selectGoodsListByPage(Goods goods, Integer pageNum, Integer pageSize){
+    public BaseResult selectGoodsListByPage(Goods goods, Integer pageNum, Integer pageSize) {
         return goodsService.selectGoodsListByPage(goods, pageNum, pageSize);
     }
+
+    @RequestMapping(value = "list/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public BaseResult deleteGoods(@PathVariable("id") Integer goodsId) {
+        return goodsService.deleteGoods(goodsId);
+    }
+
 }

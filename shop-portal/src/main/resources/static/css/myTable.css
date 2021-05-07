@@ -1,0 +1,8 @@
+@charset "utf-8";
+.table-bordered{
+    width: 100%;
+    line-height: 60px;
+}
+.table-bordered.col-1{
+    font-size: 15px;
+}

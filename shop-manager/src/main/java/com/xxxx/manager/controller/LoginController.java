@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("user")
-public class UserController {
+public class LoginController {
 
     @Reference(interfaceClass = SSOService.class)
     private SSOService ssoService;

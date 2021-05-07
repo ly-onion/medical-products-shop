@@ -49,7 +49,9 @@ control" type="text">
                                 </i>
                                 搜索
                             </button>
+                        </form>
                     </div>
+                </div>
                     <div id="ajax_return">
                         <form method="post" enctype="multipart/form-data" target="_blank" id="form-order">
                             <div class="table-responsive">
@@ -66,7 +68,10 @@ control" type="text">
                                             <a href="javascript:sort('order_status');">订单状态</a>
                                         </td>
                                         <td class="text-left">
-                                            <a href="javascript:sort('pay_status');">支付状态</a>
+                                            <a href="javascript:sort('pay_status');">订单添加时间</a>
+                                        </td>
+                                        <td class="text-left">
+                                            <a href="javascript:sort('pay_status');">收货确认时间</a>
                                         </td>
                                         <td class="text-left">
                                             <a href="javascript:sort('goods_price');">订单价格</a>
@@ -105,7 +110,8 @@ control" type="text">
         <td class="text-left">{{=it[i].orderSn}}</td>
         <td class="text-left">{{=it[i].userName}}</td>
         <td class="text-left">{{=it[i].orderStatus}}</td>
-        <td class="text-left">{{=it[i].payStatus}}</td>
+        <td class="text-left">{{=it[i].addTime}}</td>
+        <td class="text-left">{{=it[i].confirmTime}}</td>
         <td class="text-left">{{=it[i].totalAmount}}</td>
     </tr>
     {{ } }}

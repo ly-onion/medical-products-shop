@@ -28,10 +28,12 @@ function ajax_submit_form(form_id, submit_url, add_url, list_url, hidden_id) {
                         btn: ['继续新增', '返回列表', '留在本页'],
                         btn3: function (index) {
                             //将商品id设置至隐藏域
-                            $("#" + hidden_id).val(result.message);
-                            //修改商品相册上传功能按钮为可用
-                            $("#file-goods-images").attr("disabled", false);
-                            layer.close(index);
+                            if (hidden_id == -1) {
+                                $("#" + hidden_id).val(result.message);
+                            }
+                                //修改商品相册上传功能按钮为可用
+                                $("#file-goods-images").attr("disabled", false);
+                                layer.close(index);
                         }
                     },
                     function () {

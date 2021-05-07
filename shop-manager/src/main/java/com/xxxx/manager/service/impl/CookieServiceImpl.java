@@ -27,7 +27,7 @@ public class CookieServiceImpl implements CookieService {
     @Override
     public Boolean setCookie(HttpServletRequest request, HttpServletResponse response, String ticket) {
         try {
-            CookieUtil.setCookie(request, response, "userTicket", ticket);
+            CookieUtil.setCookie(request, response, "managerTicket", ticket);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

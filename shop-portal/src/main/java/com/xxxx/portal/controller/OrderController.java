@@ -23,7 +23,6 @@ public class OrderController {
 	 */
 	@RequestMapping("toPreOrder")
 	public String toPreOrder(HttpServletRequest request){
-		System.out.println("bbbbbbbbbbbbbbbbhsdsdsdsd----------1");
 		String orderUrl = (String) request.getSession().getServletContext().getAttribute("orderUrl");
 		return "redirect:"+orderUrl+"order/preOrder";
 	}

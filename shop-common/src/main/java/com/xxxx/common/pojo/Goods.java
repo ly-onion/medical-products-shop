@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author zhoubin
+ * @author zhoubin 
  * @since 1.0.0
  */
 public class Goods implements Serializable {
@@ -18,11 +18,6 @@ public class Goods implements Serializable {
      */
     private Integer catId;
 
-//    /**
-//     * 扩展分类id
-//     */
-//    private Integer extendCatId;
-
     /**
      * 商品编号
      */
@@ -32,11 +27,6 @@ public class Goods implements Serializable {
      * 商品名称
      */
     private String goodsName;
-
-    /**
-     * 点击数
-     */
-    private Integer clickCount;
 
     /**
      * 品牌id
@@ -89,11 +79,6 @@ public class Goods implements Serializable {
     private String originalImg;
 
     /**
-     * 是否为实物
-     */
-    private Byte isReal;
-
-    /**
      * 是否上架
      */
     private Byte isOnSale;
@@ -144,39 +129,9 @@ public class Goods implements Serializable {
     private Short specType;
 
     /**
-     * 购买商品赠送积分
-     */
-    private Integer giveIntegral;
-
-    /**
-     * 积分兑换：0不参与积分兑换，积分和现金的兑换比例见后台配置
-     */
-    private Integer exchangeIntegral;
-
-//    /**
-//     * 供货商ID
-//     */
-//    private Short suppliersId;
-
-    /**
      * 商品销量
      */
     private Integer salesSum;
-
-    /**
-     * 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
-     */
-    private Byte promType;
-
-    /**
-     * 优惠活动id
-     */
-    private Integer promId;
-
-    /**
-     * 佣金用于分销分成
-     */
-    private BigDecimal commission;
 
     /**
      * SPU
@@ -192,16 +147,6 @@ public class Goods implements Serializable {
      * 商品详细描述
      */
     private String goodsContent;
-
-    private Integer pageNum;
-
-    public Integer getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
 
     /**
      * t_goods
@@ -224,14 +169,6 @@ public class Goods implements Serializable {
         this.catId = catId;
     }
 
-//    public Integer getExtendCatId() {
-//        return extendCatId;
-//    }
-//
-//    public void setExtendCatId(Integer extendCatId) {
-//        this.extendCatId = extendCatId;
-//    }
-
     public String getGoodsSn() {
         return goodsSn;
     }
@@ -246,14 +183,6 @@ public class Goods implements Serializable {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName == null ? null : goodsName.trim();
-    }
-
-    public Integer getClickCount() {
-        return clickCount;
-    }
-
-    public void setClickCount(Integer clickCount) {
-        this.clickCount = clickCount;
     }
 
     public Short getBrandId() {
@@ -336,14 +265,6 @@ public class Goods implements Serializable {
         this.originalImg = originalImg == null ? null : originalImg.trim();
     }
 
-    public Byte getIsReal() {
-        return isReal;
-    }
-
-    public void setIsReal(Byte isReal) {
-        this.isReal = isReal;
-    }
-
     public Byte getIsOnSale() {
         return isOnSale;
     }
@@ -424,60 +345,12 @@ public class Goods implements Serializable {
         this.specType = specType;
     }
 
-    public Integer getGiveIntegral() {
-        return giveIntegral;
-    }
-
-    public void setGiveIntegral(Integer giveIntegral) {
-        this.giveIntegral = giveIntegral;
-    }
-
-    public Integer getExchangeIntegral() {
-        return exchangeIntegral;
-    }
-
-    public void setExchangeIntegral(Integer exchangeIntegral) {
-        this.exchangeIntegral = exchangeIntegral;
-    }
-
-//    public Short getSuppliersId() {
-//        return suppliersId;
-//    }
-//
-//    public void setSuppliersId(Short suppliersId) {
-//        this.suppliersId = suppliersId;
-//    }
-
     public Integer getSalesSum() {
         return salesSum;
     }
 
     public void setSalesSum(Integer salesSum) {
         this.salesSum = salesSum;
-    }
-
-    public Byte getPromType() {
-        return promType;
-    }
-
-    public void setPromType(Byte promType) {
-        this.promType = promType;
-    }
-
-    public Integer getPromId() {
-        return promId;
-    }
-
-    public void setPromId(Integer promId) {
-        this.promId = promId;
-    }
-
-    public BigDecimal getCommission() {
-        return commission;
-    }
-
-    public void setCommission(BigDecimal commission) {
-        this.commission = commission;
     }
 
     public String getSpu() {
@@ -512,10 +385,8 @@ public class Goods implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", goodsId=").append(goodsId);
         sb.append(", catId=").append(catId);
-//        sb.append(", extendCatId=").append(extendCatId);
         sb.append(", goodsSn=").append(goodsSn);
         sb.append(", goodsName=").append(goodsName);
-        sb.append(", clickCount=").append(clickCount);
         sb.append(", brandId=").append(brandId);
         sb.append(", storeCount=").append(storeCount);
         sb.append(", commentCount=").append(commentCount);
@@ -526,7 +397,6 @@ public class Goods implements Serializable {
         sb.append(", keywords=").append(keywords);
         sb.append(", goodsRemark=").append(goodsRemark);
         sb.append(", originalImg=").append(originalImg);
-        sb.append(", isReal=").append(isReal);
         sb.append(", isOnSale=").append(isOnSale);
         sb.append(", isFreeShipping=").append(isFreeShipping);
         sb.append(", onTime=").append(onTime);
@@ -537,13 +407,7 @@ public class Goods implements Serializable {
         sb.append(", lastUpdate=").append(lastUpdate);
         sb.append(", goodsType=").append(goodsType);
         sb.append(", specType=").append(specType);
-        sb.append(", giveIntegral=").append(giveIntegral);
-        sb.append(", exchangeIntegral=").append(exchangeIntegral);
-//        sb.append(", suppliersId=").append(suppliersId);
         sb.append(", salesSum=").append(salesSum);
-        sb.append(", promType=").append(promType);
-        sb.append(", promId=").append(promId);
-        sb.append(", commission=").append(commission);
         sb.append(", spu=").append(spu);
         sb.append(", sku=").append(sku);
         sb.append(", goodsContent=").append(goodsContent);

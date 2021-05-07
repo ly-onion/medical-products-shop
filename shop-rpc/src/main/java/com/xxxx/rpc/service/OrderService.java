@@ -1,5 +1,6 @@
 package com.xxxx.rpc.service;
 
+import com.xxxx.common.enums.OrderStatus;
 import com.xxxx.common.pojo.Admin;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.common.pojo.Order;
@@ -52,5 +53,11 @@ public interface OrderService {
      * @param orderId
      * @return
      */
-    void updateOrder(Integer orderId);
+    BaseResult updateOrder(Integer orderId, OrderStatus orderStatus);
+
+    /**
+     * 搜索待发货订单
+     * @return
+     */
+    BaseResult selectToBeDeliveredOrder(Admin admin, Integer pageNum);
 }

@@ -45,7 +45,7 @@ public class ManagerLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //获取用户票据
-        String ticket = CookieUtil.getCookieValue(request, "userTicket");
+        String ticket = CookieUtil.getCookieValue(request, "managerTicket");
         if (!StringUtils.isEmpty(ticket)) {
             //如果票据存在，进行验证
             Admin admin = ssoService.validate(ticket);

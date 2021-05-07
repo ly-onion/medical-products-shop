@@ -1,6 +1,7 @@
 package com.xxxx.common.pojo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 /**
  * @author zhoubin 
@@ -97,7 +98,7 @@ public class Admin implements Serializable {
         this.ecSalt = ecSalt == null ? null : ecSalt.trim();
     }
 
-    public Integer getAddTime() {
+    public Integer getAddTime(){
         return addTime;
     }
 

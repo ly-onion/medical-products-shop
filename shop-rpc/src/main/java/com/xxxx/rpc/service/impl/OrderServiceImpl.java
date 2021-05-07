@@ -12,6 +12,7 @@ import com.xxxx.common.enums.SendStatus;
 import com.xxxx.common.pojo.*;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.common.util.JsonUtil;
+import com.xxxx.common.util.TimeExchange;
 import com.xxxx.rpc.mapper.AdminMapper;
 import com.xxxx.rpc.mapper.OrderGoodsMapper;
 import com.xxxx.rpc.mapper.OrderMapper;
@@ -29,6 +30,7 @@ import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -48,13 +50,13 @@ import java.util.stream.Collectors;
 @Component
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
+    @Resource
     private OrderMapper orderMapper;
-    @Autowired
+    @Resource
     private OrderGoodsMapper orderGoodsMapper;
-    @Autowired
+    @Resource
     private AdminMapper adminMapper;
-    @Autowired
+    @Resource
     private RedisTemplate<String, String> redisTemplate;
     @Value("${redis.order.increment}")
     private String redisOrderIncrement;
@@ -202,7 +204,7 @@ public class OrderServiceImpl implements OrderService {
             } else {
                 //如果没有数据，将空数据放入缓存，设置失效时间60s
                 valueOperations.set(ordersListKey,
-                        JsonUtil.object2JsonStr(new PageInfo<>(new ArrayList<OrderVo>())),60, TimeUnit.SECONDS);
+                        JsonUtil.object2JsonStr(new PageInfo<>(new ArrayList<OrderVo>())), 60, TimeUnit.SECONDS);
                 return BaseResult.error();
             }
         }
@@ -215,24 +217,85 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public void updateOrder(Integer orderId) {
+    public BaseResult updateOrder(Integer orderId, OrderStatus orderStatus) {
         Order order = new Order();
         order.setOrderId(orderId);
-        order.setPayStatus((byte) 1);
-        orderMapper.updateByPrimaryKeySelective(order);
+        Byte byteStatus = orderStatus.getStatus();
+        order.setOrderStatus(byteStatus);
+        if (byteStatus == 4) {
+            order.setConfirmTime((int) LocalDateTime.now().toEpochSecond(ZoneOffset.of("+8")));
+        }
+        int result = orderMapper.updateByPrimaryKeySelective(order);
+        return result>0?BaseResult.success():BaseResult.error();
     }
 
-    public Page<OrderVo> copyList(List<Order> source){
+    public Page<OrderVo> copyList(List<Order> source) {
         Page<OrderVo> target = new Page<>();
         BeanUtils.copyProperties(source, target);
         for (Order order : source) {
             OrderVo orderVo = new OrderVo();
+            BeanUtils.copyProperties(order, orderVo);
             Admin admin = adminMapper.selectByPrimaryKey(order.getUserId().shortValue());
             orderVo.setUserName(admin.getUserName());
-            BeanUtils.copyProperties(order, orderVo);
+            orderVo.setOrderStatus(OrderStatus.findStatus(order.getOrderStatus()).getMessage());
+            orderVo.setAddTime(TimeExchange.timestampToString(order.getAddTime()));
+            orderVo.setConfirmTime(TimeExchange.timestampToString(order.getConfirmTime()));
             target.add(orderVo);
         }
         return target;
+    }
+
+    /**
+     * 搜索待发货订单
+     *
+     * @return
+     */
+    @Override
+    public BaseResult selectToBeDeliveredOrder(Admin admin, Integer pageNum) {
+        //定义RedisKey数组
+        String[] ordersKeyArr = new String[]{
+                "orders:undelivered:pageNum_" + pageNum,
+                "userId_:"
+        };
+        //构建分页对象
+        Page<Object> page = PageHelper.startPage(pageNum, 10);
+        OrderExample example = new OrderExample();
+        OrderExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderStatusEqualTo((byte) 2);
+        if (admin == null) {
+            List<Order> orderList = orderMapper.selectByExample(example);
+            if (!CollectionUtils.isEmpty(orderList)) {
+                Page<OrderVo> orderVoList = copyList(orderList);
+                PageInfo<OrderVo> pageInfo = new PageInfo<>(orderVoList);
+                return BaseResult.success(pageInfo);
+            } else {
+                return BaseResult.error();
+            }
+        } else {
+            ordersKeyArr[1] = "userId_" + admin.getAdminId() + ":";
+            //拼接完整的RedisKey
+            String ordersListKey = Arrays.stream(ordersKeyArr).collect(Collectors.joining());
+            ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+            //查询缓存，如果缓存中存在数据，直接返回
+            String pageInfoOrdersJson = valueOperations.get(ordersListKey);
+            if (!StringUtils.isEmpty(pageInfoOrdersJson)) {
+                return BaseResult.success(JsonUtil.jsonStr2Object(pageInfoOrdersJson, PageInfo.class));
+            }
+            criteria.andUserIdEqualTo(Integer.valueOf(admin.getAdminId()));
+            List<Order> orderList = orderMapper.selectByExample(example);
+            if (!CollectionUtils.isEmpty(orderList)) {
+                Page<OrderVo> orderVosList = copyList(orderList);
+                PageInfo<OrderVo> pageInfo = new PageInfo<>(orderVosList);
+                //放入redis缓存
+                valueOperations.set(ordersListKey, JsonUtil.object2JsonStr(pageInfo));
+                return BaseResult.success(pageInfo);
+            } else {
+                //如果没有数据，将空数据放入缓存，设置失效时间60s
+                valueOperations.set(ordersListKey,
+                        JsonUtil.object2JsonStr(new PageInfo<>(new ArrayList<OrderVo>())), 60, TimeUnit.SECONDS);
+                return BaseResult.error();
+            }
+        }
     }
 
     /**

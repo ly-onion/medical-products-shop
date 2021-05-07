@@ -1,6 +1,7 @@
 package com.xxxx.sso.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
 import com.xxxx.common.pojo.Admin;
 import com.xxxx.common.pojo.AdminExample;
 import com.xxxx.common.result.BaseResult;
@@ -9,13 +10,14 @@ import com.xxxx.common.util.RandomUtil;
 import com.xxxx.sso.mapper.AdminMapper;
 import com.xxxx.sso.service.UserService;
 //import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.util.HtmlUtils;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ import java.util.List;
 @Component
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Resource
     private AdminMapper adminMapper;
 //	@Autowired
 //	private RabbitTemplate rabbitTemplate;
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResult saveUser(Admin admin) {
         AdminExample example = new AdminExample();
-        example.createCriteria().andAdminIdEqualTo(admin.getAdminId());
+        example.createCriteria().andUserNameEqualTo(admin.getUserName());
         List<Admin> admins = adminMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(admins)) {
             //生成salt并存入用户信息
@@ -56,7 +58,7 @@ public class UserServiceImpl implements UserService {
             int result = adminMapper.insertSelective(admin);
 
             return result > 0 ? BaseResult.success() : BaseResult.error();
-        }else {
+        } else {
             return BaseResult.error();
         }
 
@@ -102,10 +104,78 @@ public class UserServiceImpl implements UserService {
         List<Admin> admins = adminMapper.selectByExample(example);
         if (!CollectionUtils.isEmpty(admins)) {
             return admins.get(0);
-        }else {
+        } else {
             return null;
         }
     }
 
+    /**
+     * 查询所有管理员用户
+     *
+     * @return
+     */
+    @Override
+    public List<Admin> selectAllUser(String role) {
+        AdminExample example = new AdminExample();
+        if (role.equalsIgnoreCase("managerUser")) {
+            example.createCriteria().andRoleIdBetween((short) 0, (short) 2);
+        }else if (role.equalsIgnoreCase("portalUser")){
+            example.createCriteria().andRoleIdEqualTo((short)3);
+        }
+        return adminMapper.selectByExample(example);
+    }
 
+    /**
+     * 通过ID查找admin
+     *
+     * @param adminId
+     * @return
+     */
+    @Override
+    public Admin selectAdminByAdminId(Short adminId) {
+        return adminMapper.selectByPrimaryKey(adminId);
+    }
+
+    /**
+     * 新增管理员
+     *
+     * @param admin
+     * @return
+     */
+    @Override
+    public BaseResult saveAdmin(Admin admin) {
+        if (null != admin.getAdminId()){
+            return BaseResult.error();
+        }
+        int result = adminMapper.insertSelective(admin);
+        if (0 < result) {
+            return BaseResult.success();
+        } else {
+            return BaseResult.error();
+        }
+    }
+
+    /**
+     * 根据ID更新管理员信息
+     *
+     * @param admin
+     * @return
+     */
+    @Override
+    public BaseResult updateAdmin(Admin admin) {
+        adminMapper.updateByPrimaryKeySelective(admin);
+        return BaseResult.success();
+    }
+
+    /**
+     * 删除管理员
+     *
+     * @param adminId
+     * @return
+     */
+    @Override
+    public BaseResult deleteAdmin(Short adminId) {
+        adminMapper.deleteByPrimaryKey(adminId);
+        return BaseResult.success();
+    }
 }

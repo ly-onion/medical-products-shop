@@ -26,4 +26,24 @@ public interface GoodsService {
      * @return
      */
     BaseResult selectGoodsListByPage(Goods goods, Integer pageNum, Integer pageSize);
+
+    /**
+     * 删除商品
+     * @param goodsId
+     */
+    BaseResult deleteGoods(Integer goodsId);
+
+    /**
+     * 通过ID查找goods
+     * @param goodsId
+     * @return
+     */
+    Goods selectGoodsByGoodsId(Integer goodsId);
+
+    /**
+     * 通过ID更新goods
+     * @param goods
+     * @return
+     */
+    BaseResult updateGoodsByGoodsId(Goods goods);
 }

@@ -161,12 +161,10 @@ control" type="text">
                                 </i>
                                 筛选
                             </button>
-                            <button type="button" onclick="location.href='${ctx}/goods/add'"
+                            <button type="button" onclick="location.href='${ctx}/goods/add/-1'"
                                     class="btn btn-primary pull-right"><i class="fa fa-plus"></i>添加新商品
                             </button>
-                            <input name="__hash__"
-                                   value="934c3c704c4bed5cb4da6cec6353613a_2e4eb53d2afc41d11040df3ef57fa1ca"
-                                   type="hidden"></form>
+                        </form>
                     </div>
                     <div id="ajax_return">
                         <form method="post" enctype="multipart/form-data" target="_blank" id="form-order">
@@ -240,7 +238,7 @@ control" type="text">
         <td class="text-left">
             <input onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
                    onpaste="this.value=this.value.replace(/[^\d.]/g,'')"
-                   onchange="ajaxUpdateField(this);" name="store_count" size="4"
+                   onchange="ajaxUpdateField(this);" name="store_count" size="1"
                    data-table="goods" data-id="143" value="{{=it[i].storeCount}}"
                    type="text">
         </td>
@@ -250,12 +248,10 @@ control" type="text">
                    onchange="updateSort('goods','goods_id','143','sort',this)" size="4"
                    value="{{=it[i].sort}}" type="text">
         </td>
-        <td class="text-center">
-            <a target="_blank" href="/index/Home/Goods/goodsInfo/id/143"
-               class="btn btn-info" title="查看详情"><i class="fa fa-eye"></i></a>
-            <a href="商品列表-添加新商品.html" class="btn btn-primary" title="编辑"><i
+        <td class="text-right">
+            <a href="${ctx}/goods/add/{{=it[i].goodsId}}" class="btn btn-primary" title="编辑"><i
                         class="fa fa-pencil"></i></a>
-            <a href="javascript:void(0);" onclick="del('143')" class="btn btn-danger"
+            <a href="javascript:void(0);" onclick="del('{{=it[i].goodsId}}')" class="btn btn-danger"
                title="删除"><i class="fa fa-trash-o"></i></a>
         </td>
     </tr>
@@ -341,17 +337,18 @@ active
         if (!confirm('确定要删除吗?'))
             return false;
         $.ajax({
-            url: "/index?m=Admin&c=goods&a=delGoods&id=" + id,
-            success: function (v) {
-                var v = eval('(' + v + ')');
-                if (v.hasOwnProperty('status') && (v.status == 1))
-                    ajax_get_table('search-form2', cur_page);
-                else
-                    layer.msg(v.msg, {icon: 2, time: 1000}); //alert(v.msg);
+            url: "${ctx}/goods/list/" + id,
+            type: "DELETE",
+            success: function (result) {
+                if (result.code == 200) {
+                    layer.msg("删除成功！");
+                    location.reload();
+                }
             }
         });
-        return false;
     }
+
+    //编辑操作
 </script>
 
 </body>

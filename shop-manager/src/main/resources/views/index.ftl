@@ -54,7 +54,6 @@ btn-flat">修改密码</a>
             </div>
         </nav>
     </header>
-
     <aside class="main-sidebar" style="overflow-y:auto;">
         <section class="sidebar">
             <!-- search form -->
@@ -74,64 +73,21 @@ btn-flat">修改密码</a>
             <ul class="sidebar-menu">
                 <li class="treeview">
                     <a href="javascript:void(0)">
-                        <i class="fa fa-cog"></i><span>系统设置</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="index_System">
-                            <a href='系统设置/网站设置-01.html' target='rightContent'><i class="fa fa-circle-o"></i>网站设置</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="linkList_Article">
-                            <a href='系统设置/友情链接.html' target='rightContent'><i class="fa fa-circle-o"></i>友情链接</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="navigationList_System">
-                            <a href='系统设置/自定义导航.html' target='rightContent'><i class="fa fa-circle-o"></i>自定义导航</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="region_Tools">
-                            <a href='系统设置/区域管理.html' target='rightContent'><i class="fa fa-circle-o"></i>区域管理</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="right_list_System">
-                            <a href='系统设置/权限资源列表.html' target='rightContent'><i class="fa fa-circle-o"></i>权限资源列表</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
                         <i class="fa fa-gears"></i><span>权限管理</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li onclick="makecss(this)" data-id="index_Admin">
-                            <a href='权限管理/管理员列表.html' target='rightContent'><i class="fa fa-circle-o"></i>管理员列表</a>
+                            <a href="${ctx}/admin/list/managerUser" target='rightContent'><i class="fa fa-circle-o"></i>管理员列表</a>
+                            <#--                            onclick="userList('managerUser')"-->
                         </li>
                         <li onclick="makecss(this)" data-id="role_Admin">
-                            <a href='权限管理/角色管理.html' target='rightContent'><i class="fa fa-circle-o"></i>角色管理</a>
+                            <a href='${ctx}/admin/list/portalUser' target='rightContent'><i class="fa fa-circle-o"></i>前台用户列表</a>
                         </li>
                         <li onclick="makecss(this)" data-id="supplier_Admin">
                             <a href='权限管理/供应商管理.html' target='rightContent'><i class="fa fa-circle-o"></i>供应商管理</a>
                         </li>
                         <li onclick="makecss(this)" data-id="log_Admin">
                             <a href='权限管理/管理员日志.html' target='rightContent'><i class="fa fa-circle-o"></i>管理员日志</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-user"></i><span>会员管理</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="index_User">
-                            <a href='会员管理/会员列表.html' target='rightContent'><i class="fa fa-circle-o"></i>会员列表</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="levelList_User">
-                            <a href='会员管理/会员等级.html' target='rightContent'><i class="fa fa-circle-o"></i>会员等级</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="recharge_User">
-                            <a href='会员管理/充值记录.html' target='rightContent'><i class="fa fa-circle-o"></i>充值记录</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="withdrawals_User">
-                            <a href='会员管理/提现申请.html' target='rightContent'><i class="fa fa-circle-o"></i>提现申请</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="remittance_User">
-                            <a href='会员管理/汇款记录.html' target='rightContent'><i class="fa fa-circle-o"></i>汇款记录</a>
                         </li>
                     </ul>
                 </li>
@@ -175,10 +131,11 @@ btn-flat">修改密码</a>
                     </a>
                     <ul class="treeview-menu">
                         <li onclick="makecss(this)" data-id="index_Order">
-                            <a href='${ctx}/orders/orderList' target='rightContent'><i class="fa fa-circle-o"></i>订单列表</a>
+                            <a href='${ctx}/orders/orderList' target='rightContent'><i
+                                        class="fa fa-circle-o"></i>订单列表</a>
                         </li>
                         <li onclick="makecss(this)" data-id="delivery_list_Order">
-                            <a href='订单管理/发货单.html' target='rightContent'><i class="fa fa-circle-o"></i>发货单</a>
+                            <a href='${ctx}/orders/unDelivered' target='rightContent'><i class="fa fa-circle-o"></i>待发货列表</a>
                         </li>
                         <li onclick="makecss(this)" data-id="return_list_Order">
                             <a href='订单管理/退货单.html' target='rightContent'><i class="fa fa-circle-o"></i>退货单</a>
@@ -193,127 +150,14 @@ btn-flat">修改密码</a>
                 </li>
                 <li class="treeview">
                     <a href="javascript:void(0)">
-                        <i class="fa fa-bell"></i><span>促销管理</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="flash_sale_Promotion">
-                            <a href='促销管理/抢购管理.html' target='rightContent'><i class="fa fa-circle-o"></i>抢购管理</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="group_buy_list_Promotion">
-                            <a href='促销管理/团购管理.html' target='rightContent'><i class="fa fa-circle-o"></i>团购管理</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="prom_goods_list_Promotion">
-                            <a href='促销管理/商品促销.html' target='rightContent'><i class="fa fa-circle-o"></i>商品促销</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="prom_order_list_Promotion">
-                            <a href='促销管理/订单促销.html' target='rightContent'><i class="fa fa-circle-o"></i>订单促销</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="index_Coupon">
-                            <a href='促销管理/代金券管理.html' target='rightContent'><i class="fa fa-circle-o"></i>代金券管理</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="pre_sell_list_Promotion">
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
                         <i class="fa fa-flag"></i><span>广告管理</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li onclick="makecss(this)" data-id="adList_Ad">
-                            <a href='广告管理/广告列表.html' target='rightContent'><i class="fa fa-circle-o"></i>广告列表</a>
+                            <a href='${ctx}/adManage/list' target='rightContent'><i class="fa fa-circle-o"></i>广告列表</a>
                         </li>
                         <li onclick="makecss(this)" data-id="positionList_Ad">
-                            <a href='广告管理/广告位置.html' target='rightContent'><i class="fa fa-circle-o"></i>广告位置</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-comments"></i><span>内容管理</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="articleList_Article">
-                            <a href='内容管理/文章列表.html' target='rightContent'><i class="fa fa-circle-o"></i>文章列表</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="categoryList_Article">
-                            <a href='内容管理/文章分类.html' target='rightContent'><i class="fa fa-circle-o"></i>文章分类</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="topicList_Topic">
-                            <a href='内容管理/专题列表.html' target='rightContent'><i class="fa fa-circle-o"></i>专题列表</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-weixin"></i><span>微信管理</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="index_Wechat">
-                            <a href='微信管理/公众号管理.html' target='rightContent'><i class="fa fa-circle-o"></i>公众号管理</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="menu_Wechat">
-                            <a href='微信管理/微信菜单管理.html' target='rightContent'><i class="fa fa-circle-o"></i>微信菜单管理</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="text_Wechat">
-                            <a href='微信管理/文本回复.html' target='rightContent'><i class="fa fa-circle-o"></i>文本回复</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="img_Wechat">
-                            <a href='微信管理/图文回复.html' target='rightContent'><i class="fa fa-circle-o"></i>图文回复</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="news_Wechat">
-                            <a href='微信管理/消息推送.html' target='rightContent'><i class="fa fa-circle-o"></i>消息推送</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-adjust"></i><span>模板管理</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="templateList?t=pc_Template">
-                            <a href='模板管理/PC端模板.html' target='rightContent'><i class="fa fa-circle-o"></i>PC端模板</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="templateList?t=mobile_Template">
-                            <a href='模板管理/手机端模板.html' target='rightContent'><i class="fa fa-circle-o"></i>手机端模板</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-cubes"></i><span>分销管理</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="goods_list_Distribut">
-                            <a href='分销管理/分销商品列表.html' target='rightContent'><i class="fa fa-circle-o"></i>分销商品列表</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="distributor_list_Distribut">
-                            <a href='分销管理/分销商列表.html' target='rightContent'><i class="fa fa-circle-o"></i>分销商列表</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="tree_Distribut">
-                            <a href='分销管理/分销关系.html' target='rightContent'><i class="fa fa-circle-o"></i>分销关系</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="set_Distribut">
-                            <a href='分销管理/分销设置.html' target='rightContent'><i class="fa fa-circle-o"></i>分销设置</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="rebate_log_Distribut">
-                            <a href='分销管理/分成日志.html' target='rightContent'><i class="fa fa-circle-o"></i>分成日志</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-plug"></i><span>插件工具</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="index_Plugin">
-                            <a href='插件工具/插件列表.html' target='rightContent'><i class="fa fa-circle-o"></i>插件列表</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="index_Tools">
-                            <a href='插件工具/数据备份.html' target='rightContent'><i class="fa fa-circle-o"></i>数据备份</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="restore_Tools">
-                            <a href='插件工具/数据还原.html' target='rightContent'><i class="fa fa-circle-o"></i>数据还原</a>
+                            <a href='${ctx}/adManage/modifyShow' target='rightContent'><i class="fa fa-circle-o"></i>广告位置</a>
                         </li>
                     </ul>
                 </li>
@@ -342,28 +186,13 @@ btn-flat">修改密码</a>
                         </li>
                     </ul>
                 </li>
-                <li class="treeview">
-                    <a href="javascript:void(0)">
-                        <i class="fa fa-anchor"></i><span>自提点管理</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li onclick="makecss(this)" data-id="index_Pickup">
-                            <a href='自提点管理/自提点列表.html' target='rightContent'><i class="fa fa-circle-o"></i>自提点列表</a>
-                        </li>
-                        <li onclick="makecss(this)" data-id="add_Pickup">
-                            <a href='自提点管理/添加自提点.html' target='rightContent'><i class="fa fa-circle-o"></i>添加自提点</a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
         </section>
     </aside>
-
     <section class="content-wrapper right-side" id="riframe" style="margin:0px;padding:0px;margin-left:230px;">
         <#--	修改点-->
         <iframe id='rightContent' name='rightContent' src="${ctx}/welcome" width='100%' frameborder="0"></iframe>
     </section>
-
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
@@ -433,6 +262,13 @@ btn-flat">修改密码</a>
             }
         })
 //        setTimeout('ajaxOrderNotice()',5000);
+    }
+
+    function userList(role) {
+        var httpRequest = new XMLHttpRequest();
+        var url = '${ctx}/admin/list?role=' + role;
+        httpRequest.open('GET', url, true);
+        httpRequest.send();
     }
 
     //setTimeout('ajaxOrderNotice()',5000);

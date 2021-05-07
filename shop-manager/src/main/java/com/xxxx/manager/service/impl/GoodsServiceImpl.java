@@ -10,6 +10,7 @@ import com.xxxx.common.pojo.Goods;
 import com.xxxx.common.pojo.GoodsExample;
 import com.xxxx.manager.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,13 +34,14 @@ import java.util.stream.Collectors;
 @Service
 public class GoodsServiceImpl implements GoodsService {
 
-    @Autowired
+    @Resource
     private GoodsMapper goodsMapper;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
     /**
      * 商品新增-保存
+     *
      * @param goods
      * @return
      */
@@ -75,7 +78,7 @@ public class GoodsServiceImpl implements GoodsService {
     public BaseResult selectGoodsListByPage(Goods goods, Integer pageNum, Integer pageSize) {
         //定义RedisKey数组
         String[] goodsKeyArr = new String[]{
-                "goods:pageNum_"+pageNum+":PageSize_"+pageSize+":",
+                "goods:pageNum_" + pageNum + ":PageSize_" + pageSize + ":",
                 "catId_:",
                 "brandId_:",
                 "goodsName_:"
@@ -89,17 +92,17 @@ public class GoodsServiceImpl implements GoodsService {
         //分类参数
         if (null != goods.getCatId() && 0 != goods.getCatId()) {
             criteria.andCatIdEqualTo(goods.getCatId());
-            goodsKeyArr[1] = "catId_"+goods.getCatId()+":";
+            goodsKeyArr[1] = "catId_" + goods.getCatId() + ":";
         }
         //品牌参数
         if (null != goods.getBrandId() && 0 != goods.getBrandId()) {
             criteria.andBrandIdEqualTo(goods.getBrandId());
-            goodsKeyArr[2] = "brandtId_"+goods.getBrandId()+":";
+            goodsKeyArr[2] = "brandtId_" + goods.getBrandId() + ":";
         }
         //关键词参数
         if (!StringUtils.isEmpty(goods.getGoodsName())) {
             criteria.andGoodsNameLike("%" + goods.getGoodsName() + "%");
-            goodsKeyArr[3] = "goodsName_"+goods.getGoodsName()+":";
+            goodsKeyArr[3] = "goodsName_" + goods.getGoodsName() + ":";
         }
         //拼接完整的RedisKey
         String goodsListKey = Arrays.stream(goodsKeyArr).collect(Collectors.joining());
@@ -112,14 +115,57 @@ public class GoodsServiceImpl implements GoodsService {
         //判断查询结果是否为空
         List<Goods> list = goodsMapper.selectByExample(example);
         if (!CollectionUtils.isEmpty(list)) {
-            PageInfo<Goods> pageInfo  = new PageInfo<>(list);
+            PageInfo<Goods> pageInfo = new PageInfo<>(list);
             //放入redis缓存
             valueOperations.set(goodsListKey, JsonUtil.object2JsonStr(pageInfo));
             return BaseResult.success(pageInfo);
-        }else {
+        } else {
             //如果没有数据，将空数据放入缓存，设置失效时间60s
-            valueOperations.set(goodsListKey, JsonUtil.object2JsonStr(new PageInfo<>(new ArrayList<Goods>())),60, TimeUnit.SECONDS);
+            valueOperations.set(goodsListKey, JsonUtil.object2JsonStr(new PageInfo<>(new ArrayList<Goods>())), 60, TimeUnit.SECONDS);
         }
         return BaseResult.error();
     }
+
+    /**
+     * 删除商品
+     *
+     * @param goodsId
+     */
+    @Override
+    public BaseResult deleteGoods(Integer goodsId) {
+        String goodsName = goodsMapper.selectByPrimaryKey(goodsId).getGoodsName();
+        redisTemplate.delete(redisTemplate.keys("goods:pageNum_*:PageSize_*:catId_*:brandId_*:goodsName_" + goodsName + ":"));
+        goodsMapper.deleteByPrimaryKey(goodsId);
+        return BaseResult.success();
+    }
+
+    /**
+     * 通过ID查找goods
+     *
+     * @param goodsId
+     * @return
+     */
+    @Override
+    public Goods selectGoodsByGoodsId(Integer goodsId) {
+        Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+        if (goods != null) {
+            return goods;
+        }else {
+            return new Goods();
+        }
+    }
+
+    /**
+     * 通过ID更新goods
+     *
+     * @param goods
+     * @return
+     */
+    @Override
+    public BaseResult updateGoodsByGoodsId(Goods goods) {
+        goodsMapper.updateByPrimaryKeySelective(goods);
+        redisTemplate.delete(redisTemplate.keys("goods*"));
+        return BaseResult.success();
+    }
+
 }

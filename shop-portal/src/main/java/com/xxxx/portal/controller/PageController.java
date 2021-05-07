@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @PROJECT_NAME: shop
  * @DESCRIPTION:页面跳转
@@ -32,5 +34,12 @@ public class PageController {
     @ResponseBody
     public String toCorrect(){
         return "index";
+    }
+
+
+    @RequestMapping("myOrder")
+    public String toUserOrder(HttpServletRequest request){
+        String orderUrl = (String) request.getSession().getServletContext().getAttribute("orderUrl");
+        return "redirect:"+orderUrl+"order/myOrder";
     }
 }

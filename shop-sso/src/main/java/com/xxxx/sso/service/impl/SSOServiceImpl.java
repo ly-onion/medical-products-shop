@@ -44,6 +44,7 @@ public class SSOServiceImpl implements SSOService {
      */
     @Override
     public String login(Admin admin) {
+        System.out.println("!!!!!!SSOadmin = " + admin);
         //判断参数合法性
         //判断参数是否为空
         if (StringUtils.isEmpty(admin.getUserName().trim())) {
@@ -69,6 +70,7 @@ public class SSOServiceImpl implements SSOService {
             System.out.println("用户名或密码错误");
             return null;
         }
+        admin.setAdminId(a.getAdminId());
         //用户名和密码一致，登录成功返回票据信息
         //生成票据信息存入redis，页面借助cookie存储票据ticket
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();

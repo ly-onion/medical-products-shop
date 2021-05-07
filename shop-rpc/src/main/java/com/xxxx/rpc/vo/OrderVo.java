@@ -24,12 +24,17 @@ public class OrderVo implements Serializable {
     /**
      * 订单状态
      */
-    private Byte orderStatus;
+    private String orderStatus;
 
     /**
-     * 支付状态
+     * 下单时间
      */
-    private Byte payStatus;
+    private String addTime;
+
+    /**
+     * 收货确认时间
+     */
+    private String confirmTime;
 
     /**
      * 订单总价
@@ -52,20 +57,12 @@ public class OrderVo implements Serializable {
         this.userName = userName;
     }
 
-    public Byte getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Byte orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
-    }
-
-    public Byte getPayStatus() {
-        return payStatus;
-    }
-
-    public void setPayStatus(Byte payStatus) {
-        this.payStatus = payStatus;
     }
 
     public BigDecimal getTotalAmount() {
@@ -76,13 +73,30 @@ public class OrderVo implements Serializable {
         this.totalAmount = totalAmount;
     }
 
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
+    }
+
+    public String getConfirmTime() {
+        return confirmTime;
+    }
+
+    public void setConfirmTime(String confirmTime) {
+        this.confirmTime = confirmTime;
+    }
+
     @Override
     public String toString() {
         return "OrderVo{" +
                 "orderSn='" + orderSn + '\'' +
-                ", userName=" + userName +
+                ", userName='" + userName + '\'' +
                 ", orderStatus=" + orderStatus +
-                ", payStatus=" + payStatus +
+                ", addTime=" + addTime +
+                ", confirmTime=" + confirmTime +
                 ", totalAmount=" + totalAmount +
                 '}';
     }

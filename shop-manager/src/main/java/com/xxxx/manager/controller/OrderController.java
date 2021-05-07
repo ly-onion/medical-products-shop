@@ -1,7 +1,9 @@
 package com.xxxx.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.xxxx.common.enums.OrderStatus;
 import com.xxxx.common.pojo.Admin;
+import com.xxxx.common.pojo.Order;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.rpc.service.OrderService;
 import com.xxxx.sso.service.UserService;
@@ -30,6 +32,11 @@ public class OrderController {
         return "order/order-List";
     }
 
+    @RequestMapping("unDelivered")
+    public String unDeliveredOrderList() {
+        return "order/undelivered-order-List";
+    }
+
 
     @RequestMapping("listForPage")
     @ResponseBody
@@ -38,4 +45,18 @@ public class OrderController {
         return orderService.selectAllOrders(admin, pageNum);
     }
 
+    @RequestMapping("unDeliList")
+    @ResponseBody
+    public BaseResult unDeliveredOrder(String userName, Integer pageNum){
+        Admin admin = userService.selectUserByUserName(userName);
+
+        return orderService.selectToBeDeliveredOrder(admin, pageNum);
+    }
+
+    @RequestMapping("confirmDelivere")
+    @ResponseBody
+    public BaseResult confirmDelivere(String orderSn){
+        Order order = orderService.selectOrderByOrderSn(orderSn);
+        return orderService.updateOrder(order.getOrderId(), OrderStatus.cancled);
+    }
 }
