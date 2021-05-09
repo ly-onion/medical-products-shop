@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableDubboConfiguration
-@MapperScan("con.xxxx.portal.mapper")
+@MapperScan("com.xxxx.portal.mapper")
 public class PortalApplication {
     public static void main(String[] args) {
         SpringApplication.run(PortalApplication.class, args);

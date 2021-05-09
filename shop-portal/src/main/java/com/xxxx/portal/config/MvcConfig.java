@@ -34,10 +34,12 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**");
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/cart/**")
+                .addPathPatterns("/userInfo/**")
                 .excludePathPatterns("/static/**")
                 .excludePathPatterns("/login/**")
                 .excludePathPatterns("/user/login/**")
-                .excludePathPatterns("/user/logout/**");
+                .excludePathPatterns("/user/logout/**")
+                .excludePathPatterns("/goods/**");
     }
 
     /**

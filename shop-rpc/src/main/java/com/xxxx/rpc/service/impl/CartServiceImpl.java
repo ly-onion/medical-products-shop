@@ -2,11 +2,16 @@ package com.xxxx.rpc.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.xxxx.common.pojo.Admin;
+import com.xxxx.common.pojo.Goods;
 import com.xxxx.common.result.BaseResult;
 import com.xxxx.common.util.JsonUtil;
+import com.xxxx.rpc.mapper.CartMapper;
+import com.xxxx.rpc.mapper.GoodsMapper;
+import com.xxxx.rpc.pojo.Cart;
 import com.xxxx.rpc.service.CartService;
 import com.xxxx.rpc.vo.CartResult;
 import com.xxxx.rpc.vo.CartVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.HashOperations;
@@ -15,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +38,8 @@ import java.util.stream.Collectors;
 public class CartServiceImpl implements CartService {
 
     private HashOperations<String, String, String> hashOperations = null;
+    @Resource
+    private GoodsMapper goodsMapper;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
     @Value("${user.cart}")
@@ -53,10 +61,12 @@ public class CartServiceImpl implements CartService {
         hashOperations = redisTemplate.opsForHash();
         Map<String, String> cartMap = hashOperations.entries(userCart + ":" + userId);
         if (!CollectionUtils.isEmpty(cartMap)) {
+
             //如果购物车信息不为空，修改购物车信息
             //根据商品Id获取购物车信息
             String cartStr = cartMap.get(String.valueOf(cartVo.getGoodsId()));
             if (!StringUtils.isEmpty(cartStr)) {
+                System.out.println("cartVo购物信息存在存在 = " + cartVo);
                 //如果商品存在修改商品数量和价格
                 CartVo vo = JsonUtil.jsonStr2Object(cartStr, CartVo.class);
                 vo.setGoodsNum(vo.getGoodsNum() + cartVo.getGoodsNum());
@@ -65,13 +75,19 @@ public class CartServiceImpl implements CartService {
                 //重新添加map,覆盖之前的商品对象
                 cartMap.put(String.valueOf(vo.getGoodsId()), JsonUtil.object2JsonStr(vo));
             } else {
+                Goods goods = goodsMapper.selectByPrimaryKey(cartVo.getGoodsId());
+                BeanUtils.copyProperties(goods, cartVo);
                 //如果商品不存在，直接添加购物车信息
                 cartMap.put(String.valueOf(cartVo.getGoodsId()), JsonUtil.object2JsonStr(cartVo));
+                System.out.println("cartVo购物车存在 = " + cartVo);
             }
         } else {
+            Goods goods = goodsMapper.selectByPrimaryKey(cartVo.getGoodsId());
+            BeanUtils.copyProperties(goods, cartVo);
             //如果购物车信息为空，新增购物车信息
             cartMap = new HashMap<>();
             cartMap.put(String.valueOf(cartVo.getGoodsId()), JsonUtil.object2JsonStr(cartVo));
+            System.out.println("cartVo购物车不存在 = " + cartVo);
         }
         hashOperations.putAll(userCart + ":" + userId, cartMap);
         return BaseResult.success();

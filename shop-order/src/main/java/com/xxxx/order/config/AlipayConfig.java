@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class AlipayConfig {
 
-	public static String public_address = "http://e73zex.natappfree.cc";
+	public static String public_address = "http://3pizqg.natappfree.cc";
 //↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 	// 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号

@@ -125,9 +125,6 @@
             <div class="s_hd">
                 <#include "common/search.ftl">
 
-
-                <#include "common/cart.ftl">
-
                 <div id="s_cartbox" class="s_cartbox">您的购物车中暂无商品，赶快选择心爱的商品吧！</div>
 
                 <script type="text/javascript">
@@ -328,7 +325,7 @@
                 }
             },
             error: function () {
-                layer.alert("亲，系统正在升级中，请稍后再试！");
+                layer.alert("login POST 亲，系统正在升级中，请稍后再试！");
             }
         });
     }

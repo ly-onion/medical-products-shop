@@ -24,11 +24,6 @@ public class OrderGoods implements Serializable {
     private Integer goodsId;
 
     /**
-     * 视频名称
-     */
-    private String goodsName;
-
-    /**
      * 商品货号
      */
     private String goodsSn;
@@ -54,44 +49,9 @@ public class OrderGoods implements Serializable {
     private BigDecimal costPrice;
 
     /**
-     * 会员折扣价
-     */
-    private BigDecimal memberGoodsPrice;
-
-    /**
-     * 购买商品赠送积分
-     */
-    private Integer giveIntegral;
-
-    /**
      * 商品规格key
      */
     private String specKey;
-
-    /**
-     * 规格对应的中文名字
-     */
-    private String specKeyName;
-
-    /**
-     * 条码
-     */
-    private String barCode;
-
-    /**
-     * 是否评价
-     */
-    private Byte isComment;
-
-    /**
-     * 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
-     */
-    private Byte promType;
-
-    /**
-     * 活动id
-     */
-    private Integer promId;
 
     /**
      * 0未发货，1已发货，2已换货，3已退货
@@ -137,14 +97,6 @@ public class OrderGoods implements Serializable {
         this.goodsId = goodsId;
     }
 
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName == null ? null : goodsName.trim();
-    }
-
     public String getGoodsSn() {
         return goodsSn;
     }
@@ -185,68 +137,12 @@ public class OrderGoods implements Serializable {
         this.costPrice = costPrice;
     }
 
-    public BigDecimal getMemberGoodsPrice() {
-        return memberGoodsPrice;
-    }
-
-    public void setMemberGoodsPrice(BigDecimal memberGoodsPrice) {
-        this.memberGoodsPrice = memberGoodsPrice;
-    }
-
-    public Integer getGiveIntegral() {
-        return giveIntegral;
-    }
-
-    public void setGiveIntegral(Integer giveIntegral) {
-        this.giveIntegral = giveIntegral;
-    }
-
     public String getSpecKey() {
         return specKey;
     }
 
     public void setSpecKey(String specKey) {
         this.specKey = specKey == null ? null : specKey.trim();
-    }
-
-    public String getSpecKeyName() {
-        return specKeyName;
-    }
-
-    public void setSpecKeyName(String specKeyName) {
-        this.specKeyName = specKeyName == null ? null : specKeyName.trim();
-    }
-
-    public String getBarCode() {
-        return barCode;
-    }
-
-    public void setBarCode(String barCode) {
-        this.barCode = barCode == null ? null : barCode.trim();
-    }
-
-    public Byte getIsComment() {
-        return isComment;
-    }
-
-    public void setIsComment(Byte isComment) {
-        this.isComment = isComment;
-    }
-
-    public Byte getPromType() {
-        return promType;
-    }
-
-    public void setPromType(Byte promType) {
-        this.promType = promType;
-    }
-
-    public Integer getPromId() {
-        return promId;
-    }
-
-    public void setPromId(Integer promId) {
-        this.promId = promId;
     }
 
     public Byte getIsSend() {
@@ -282,20 +178,12 @@ public class OrderGoods implements Serializable {
         sb.append(", recId=").append(recId);
         sb.append(", orderId=").append(orderId);
         sb.append(", goodsId=").append(goodsId);
-        sb.append(", goodsName=").append(goodsName);
         sb.append(", goodsSn=").append(goodsSn);
         sb.append(", goodsNum=").append(goodsNum);
         sb.append(", marketPrice=").append(marketPrice);
         sb.append(", goodsPrice=").append(goodsPrice);
         sb.append(", costPrice=").append(costPrice);
-        sb.append(", memberGoodsPrice=").append(memberGoodsPrice);
-        sb.append(", giveIntegral=").append(giveIntegral);
         sb.append(", specKey=").append(specKey);
-        sb.append(", specKeyName=").append(specKeyName);
-        sb.append(", barCode=").append(barCode);
-        sb.append(", isComment=").append(isComment);
-        sb.append(", promType=").append(promType);
-        sb.append(", promId=").append(promId);
         sb.append(", isSend=").append(isSend);
         sb.append(", deliveryId=").append(deliveryId);
         sb.append(", sku=").append(sku);

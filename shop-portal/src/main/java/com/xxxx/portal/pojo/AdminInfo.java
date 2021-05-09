@@ -1,5 +1,7 @@
 package com.xxxx.portal.pojo;
 
+import com.xxxx.common.util.TimeExchange;
+
 import java.io.Serializable;
 
 /**
@@ -37,10 +39,24 @@ public class AdminInfo implements Serializable {
      */
     private Integer birthday;
 
+    private String strBirthday;
+
     /**
      * t_admin_info
      */
     private static final long serialVersionUID = 1L;
+
+    public String getStrBirthday() {
+        return strBirthday;
+    }
+
+    public void setStrBirthday(String strBirthday) {
+        this.strBirthday = strBirthday;
+        setBirthday();
+    }
+    public void setStrBirthday() {
+        this.strBirthday = TimeExchange.timestampToString(this.birthday);
+    }
 
     public Integer getAdminId() {
         return adminId;
@@ -88,6 +104,10 @@ public class AdminInfo implements Serializable {
 
     public void setBirthday(Integer birthday) {
         this.birthday = birthday;
+        setStrBirthday();
+    }
+    public void setBirthday(){
+        this.birthday=TimeExchange.StringToTimestamp(this.strBirthday);
     }
 
     @Override

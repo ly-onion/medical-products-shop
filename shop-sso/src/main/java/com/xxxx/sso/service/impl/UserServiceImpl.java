@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -119,8 +120,8 @@ public class UserServiceImpl implements UserService {
         AdminExample example = new AdminExample();
         if (role.equalsIgnoreCase("managerUser")) {
             example.createCriteria().andRoleIdBetween((short) 0, (short) 2);
-        }else if (role.equalsIgnoreCase("portalUser")){
-            example.createCriteria().andRoleIdEqualTo((short)3);
+        } else if (role.equalsIgnoreCase("portalUser")) {
+            example.createCriteria().andRoleIdEqualTo((short) 3);
         }
         return adminMapper.selectByExample(example);
     }
@@ -144,7 +145,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public BaseResult saveAdmin(Admin admin) {
-        if (null != admin.getAdminId()){
+        if (null != admin.getAdminId()) {
             return BaseResult.error();
         }
         int result = adminMapper.insertSelective(admin);
@@ -177,5 +178,33 @@ public class UserServiceImpl implements UserService {
     public BaseResult deleteAdmin(Short adminId) {
         adminMapper.deleteByPrimaryKey(adminId);
         return BaseResult.success();
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param admin
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    @Override
+    public BaseResult modifyPsw(Admin admin, String oldPassword, String newPassword) {
+        BaseResult baseResult = BaseResult.error();
+        System.out.println("admin = " + admin);
+        if (!admin.getPassword().equals(Md5Util.getMd5WithSalt(oldPassword, admin.getEcSalt()))) {
+            baseResult.setMessage("旧密码输入错误！");
+            return baseResult;
+        }
+        admin.setPassword(Md5Util.getMd5WithSalt(newPassword, admin.getEcSalt()));
+        System.out.println("admin = " + admin);
+        int result = adminMapper.updateByPrimaryKeySelective(admin);
+        if (result>0){
+            baseResult = BaseResult.success();
+            return baseResult;
+        }else {
+            baseResult.setMessage("数据库更新失败");
+            return baseResult;
+        }
     }
 }

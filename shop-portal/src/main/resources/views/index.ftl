@@ -179,12 +179,12 @@
                                     <div class="loginbox">
                                         <div class="login_icon cf">
                                             <ul>
-                                                <li><a href="#">免费注册</a></li>
-                                                <li><a href="#">用户登录</a></li>
+                                                <li><a href="${ctx}/login">免费注册</a></li>
+                                                <li><a href="${ctx}/register">用户登录</a></li>
                                             </ul>
                                         </div>
 
-                                        <div class="announce_top cf"><h3>关注EGO商城<span><a href="#">更多</a></span></h3>
+                                        <div class="announce_top cf"><h3>关注EGO商城</h3>
                                         </div>
 
                                         <div class="announce_cont">
@@ -209,7 +209,7 @@
                     <div class="i_col_lft">
                         <div class="i_lads">
                             <ul>
-                                <li><a href="#"><img src="${ctx}/static/images/lad1.jpg"/></a></li>
+                                <li><a href="${ctx}/goods/good?goodsId=229"><img src="${ctx}/static/images/lad1.jpg"/></a></li>
                                 <li><a href="#"><img src="${ctx}/static/images/lad2.jpg"/></a></li>
                                 <li><a href="#"><img src="${ctx}/static/images/lad3.jpg"/></a></li>
                             </ul>

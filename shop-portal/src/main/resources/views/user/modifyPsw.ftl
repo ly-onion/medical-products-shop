@@ -65,36 +65,14 @@
             <div id="app">
                 <!-- Form -->
                 <el-form ref="form" :model="form" label-width="80px">
-                    <el-form-item label="用户名">
-                        <el-input v-model="userName" readonly="true"></el-input>
+                    <el-form-item label="旧密码">
+                        <el-input type="password" v-model="form.oldPassword"></el-input>
                     </el-form-item>
-                    <el-form-item label="收货地址">
-                        <el-input v-model="form.address"></el-input>
-                    </el-form-item>
-                    <el-form-item label="身高（CM）">
-                        <el-input v-model="form.height"></el-input>
-                    </el-form-item>
-                    <el-form-item label="体重（KG）">
-                        <el-input v-model="form.weight"></el-input>
-                    </el-form-item>
-                    <el-form-item label="性别">
-                        <el-select v-model="form.sex" placeholder="请选择">
-                            <el-option label="男" value="男"></el-option>
-                            <el-option label="女" value="女"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="出生日期">
-                        <el-date-picker
-                                v-model="form.strBirthday"
-                                format="yyyy-MM-dd"
-                                value-format="yyyy-MM-dd"
-                                type="date"
-                                placeholder="form.strBirthday">
-                        </el-date-picker>
+                    <el-form-item label="新密码">
+                        <el-input type="password" v-model="form.newPassword"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                        <el-button>取消</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -103,28 +81,29 @@
                 var Main = {
                     data() {
                         return {
-                            userName: '${Session["user"].userName}',
                             form: {
-                                adminId: '${userInfo.adminId}',
-                                address: '${userInfo.address}',
-                                height: '${userInfo.height}',
-                                weight: '${userInfo.weight}',
-                                sex: '${userInfo.sex}',
-                                strBirthday: '${userInfo.strBirthday}',
+                                oldPassword: '',
+                                newPassword: '',
                             }
                         }
                     },
                     methods: {
+
                         onSubmit() {
+                            var mess = this;
                             $.ajax({
                                 type: "POST",
-                                url: "${ctx}/userInfo/info",
+                                url: "${ctx}/userInfo/savePsw",
                                 data: this.form,
                                 success: function (result) {
                                     if (result.code == 200){
-                                        layer.confirm("保存成功");
+                                        mess.$message('修改成功，请重新登录');
+                                        let xhr = new XMLHttpRequest();
+                                        xhr.open('GET', '${ctx}/user/logout', true);
+                                        xhr.send();
+                                        window.location.href="${ctx}/login";
                                     }else {
-                                        alert("服务器繁忙, 请稍后重试!");
+                                        mess.$message('旧密码输入错误，请重新输入');
                                     }
                                 },
                                 error: function (result) {
@@ -147,6 +126,7 @@
 </div><!--s_bdw end-->
 
 <script type="text/javascript">
+
     $(document).ready(function () {
         $("#riframe").height($(window).height() - 50);// 浏览器当前窗口可视区域高度 静态页面下-100
         $("#rightContent").height($(window).height() - 39);// 静态页面下-100

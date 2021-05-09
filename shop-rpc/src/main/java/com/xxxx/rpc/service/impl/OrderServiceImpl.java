@@ -101,14 +101,10 @@ public class OrderServiceImpl implements OrderService {
                 orderGoods.setOrderId(order.getOrderId());
                 //商品id
                 orderGoods.setGoodsId(cartVo.getGoodsId());
-                //商品名称
-                orderGoods.setGoodsName(cartVo.getGoodsName());
                 //商品价格
                 orderGoods.setGoodsPrice(cartVo.getMarketPrice());
                 //商品数量
                 orderGoods.setGoodsNum(cartVo.getGoodsNum().shortValue());
-                //订单方式
-                orderGoods.setPromType(PromTypeStatus.normal.getStatus());
                 //发货状态
                 orderGoods.setIsSend(SendStatus.no_pay.getStatus());
                 //添加到订单商品对象列表

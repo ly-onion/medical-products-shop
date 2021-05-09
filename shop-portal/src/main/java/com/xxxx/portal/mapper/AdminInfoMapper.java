@@ -2,10 +2,12 @@ package com.xxxx.portal.mapper;
 
 import com.xxxx.portal.pojo.AdminInfo;
 import com.xxxx.portal.pojo.AdminInfoExample;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+@Mapper
 public interface AdminInfoMapper {
     long countByExample(AdminInfoExample example);
 
